@@ -12,17 +12,40 @@
 
 # Work Plan
 
-### Part 1:
+## Part 1:
 
-- Put all the function you need in the utils + the LongText comp (30m)
-- Put some data in the pages and check that everything is working (1h)
+- [v] Put all the function you need in the utils + the LongText comp (30m)
+- [v] Put some data in the pages and check that everything is working (1h)
 
-### Part 2:
+## Part 2 MailPage:
 
-- Create misterMail
+- [v] Create MailPage
 
-- Deside the style of the app
-- Create the Navbar on the left and put there the comps:
-- MailIndex , MailList , MailPreview , MailDetails , MailFilter , MailFolderList , MailCompose
+- [v] Deside the style of the app
+- [v] Create comps: MailIndex , MailList , MailPreview , MailDetails , MailFilter , MailFolderList , MailCompose
 
-# Mickael TODO- Finish Part 1 and then keep building Part 2
+### NavBar:
+
+- [] 1. button with 3 - when I click on it the navbar toggle to small or big
+
+- [] 2. GMAIL Logo as a button that take me back to to MailIndex comp (useNavigate or Link)
+
+- [] 3. Compose button to wright new mail (MailCompose comp)
+
+- [] 4. navbar navigation - Index, Starred, Sent, Draft, Trash
+
+### MailFilter:
+
+- [] 1. SearchBar (no button needed)
+
+- [] 2. More functions as a filter (Date select options) and more
+
+### MailIndex:
+
+- [] 1. Render mails in MailList & MailPreview
+
+- [] 2. Each MailPreview has [], star, mail, title and body
+
+- [] 3. Use filter to tilter them
+
+- [] 4.
