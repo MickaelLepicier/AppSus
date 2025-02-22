@@ -24,21 +24,26 @@
 - [v] Deside the style of the app
 - [v] Create comps: MailIndex , MailList , MailPreview , MailDetails , MailFilter , MailFolderList , MailCompose
 
-### NavBar:
+### Header: (btn, logo and filterBar)
 
 - [] 1. button with 3 - when I click on it the navbar toggle to small or big
 
 - [] 2. GMAIL Logo as a button that take me back to to MailIndex comp (useNavigate or Link)
-
-- [] 3. Compose button to wright new mail (MailCompose comp)
-
-- [] 4. navbar navigation - Index, Starred, Sent, Draft, Trash
 
 ### MailFilter:
 
 - [] 1. SearchBar (no button needed)
 
 - [] 2. More functions as a filter (Date select options) and more
+
+
+
+### NavBar:
+
+- [] 1. Compose button to wright new mail (MailCompose comp)
+
+- [] 2. navbar navigation - Index, Starred, Sent, Draft, Trash
+
 
 ### MailIndex:
 
