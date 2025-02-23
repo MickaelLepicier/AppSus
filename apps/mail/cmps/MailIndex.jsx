@@ -1,12 +1,16 @@
+import { MailList } from "./MailList"
+import { MailPreview } from "./MailPreview"
 
 
 
+//
+const { useState, useEffect } = React
 
-// TODOs:
-// 
+export function MailIndex({mails}) {
+console.log('mails: ',mails)
 
+// const [mails, setMails] = useState()
 
-export function MailIndex() {
     return <section className="container">Mail Index</section>
 }
 

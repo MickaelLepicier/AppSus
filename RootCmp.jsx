@@ -9,16 +9,21 @@ import { MailPage } from './apps/mail/pages/MailPage.jsx'
 import { NoteIndex } from './apps/note/pages/NoteIndex.jsx'
 
 export function RootCmp() {
-    return <Router>
-        <section className="root-cmp">
-            <AppHeader />
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/mail" element={<MailPage />} />
-                <Route path="/note" element={<NoteIndex />} />
-            </Routes>
-            <UserMsg />
-        </section>
+  return (
+    <Router>
+      <section className="root-cmp">
+        <AppHeader />
+
+        <main >
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/mail" element={<MailPage />} />
+          <Route path="/note" element={<NoteIndex />} />
+        </Routes>
+        </main>
+        <UserMsg />
+      </section>
     </Router>
+  )
 }
