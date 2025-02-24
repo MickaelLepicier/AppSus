@@ -1,3 +1,3 @@
-export function MailCompose() {
+export function MailCompose({mailId}) {
   return <div>Mail Compose</div>
 }

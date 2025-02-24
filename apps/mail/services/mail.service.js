@@ -1,5 +1,5 @@
-import { storageService } from './async-storage.service.js'
-import { utilService } from './util.service'
+import { storageService } from '../../../services/async-storage.service.js'
+import { utilService } from '../../../services/util.service.js'
 
 // const {loadFromStorage, saveToStorage, makeId, makeLorem, getRandomIntInclusive} = utilService
 
@@ -22,6 +22,42 @@ export const mailService = {
 }
 
 window.ms = mailService
+
+const mailsData = [
+  {
+    id: 'e101',
+    createdAt: 1551133930500,
+    subject: 'Miss you!',
+    body: 'Would love to catch up sometimes',
+    isRead: false,
+    sentAt: 1551133930594,
+    removedAt: null,
+    from: 'momo@momo.com',
+    to: 'user@appsus.com'
+  },
+  {
+    id: 'e102',
+    createdAt: 1551133930500,
+    subject: 'SECOND MAIL!',
+    body: 'You are amazing and yada yada!!',
+    isRead: false,
+    sentAt: 1551133930594,
+    removedAt: null,
+    from: 'bobo@bobo.com',
+    to: 'user@appsus.com'
+  },
+  {
+    id: 'e103',
+    createdAt: 1551133930500,
+    subject: 'THIRD MAIL',
+    body: 'YuGiOh for all time longgggg!!',
+    isRead: false,
+    sentAt: 1551133930594,
+    removedAt: null,
+    from: 'roro@roro.com',
+    to: 'user@appsus.com'
+  }
+]
 
 function query(filterBy = {}) {
   return storageService.query(MAIL_KEY).then((mails) => {
@@ -111,6 +147,8 @@ function _createMails() {
       subject: utilService.makeLorem(2),
       body: utilService.makeLorem(10),
       isRead: false,
+      isStar: false,
+      isSelected: false,
       sentAt: 1551133930594,
       removedAt: null,
       from: 'momo@momo.com',
@@ -120,39 +158,3 @@ function _createMails() {
   }
   utilService.saveToStorage(MAIL_KEY, mails)
 }
-
-const mailsData = [
-  {
-    id: 'e101',
-    createdAt: 1551133930500,
-    subject: 'Miss you!',
-    body: 'Would love to catch up sometimes',
-    isRead: false,
-    sentAt: 1551133930594,
-    removedAt: null,
-    from: 'momo@momo.com',
-    to: 'user@appsus.com'
-  },
-  {
-    id: 'e102',
-    createdAt: 1551133930500,
-    subject: 'SECOND MAIL!',
-    body: '2222222222222222222',
-    isRead: false,
-    sentAt: 1551133930594,
-    removedAt: null,
-    from: 'momo@momo.com',
-    to: 'user@appsus.com'
-  },
-  {
-    id: 'e103',
-    createdAt: 1551133930500,
-    subject: 'THIRD MAIL',
-    body: '33333333333333333333333333',
-    isRead: false,
-    sentAt: 1551133930594,
-    removedAt: null,
-    from: 'momo@momo.com',
-    to: 'user@appsus.com'
-  }
-]
