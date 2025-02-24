@@ -1,3 +1,4 @@
+import { mailService } from '../services/mail.service.js'
 import { MailList } from './MailList.jsx'
 import { MailPreview } from './MailPreview.jsx'
 
@@ -7,54 +8,40 @@ const { useState, useEffect } = React
 export function MailIndex({ mails, setMails }) {
   //   console.log('MailIndex: ', mails)
 
-  // const [mails, setMails] = useState()
-
-  // renderMails()
-
   function renderMails() {
-    return mails.map((mail) => {
+    // TODO change the malis state instead of creating for each mail new state
+    // Orgenize the code with copms
+
+    return mails.map((currMail) => {
+      const [mail, setMail] = useState({ ...currMail })
       // console.log('mail: ',mail)
 
-      const {
-        id,
-        createdAt,
-        subject,
-        body,
-        isRead,
-        isStar,
-        isSelected,
-        sentAt,
-        removedAt,
-        from,
-        to
-      } = mail
+      const { id, createdAt, subject, body, isRead, isStar, isSelected, sentAt, removedAt, from, to } = mail
 
-      //   const starActive = isStar ? '&#11088;' : '&star;'
-      const starActive = isStar ? '\u2B50' : '\u2606'
+      // const starActive = isStar ? '\u2B50' : '\u2606'
       const selectActive = isSelected ? 'select-active' : ''
 
       function handleChange({ target }) {
-        // console.log('target: ', target.dataset.id)
-        let { type, field, value } = target.dataset
-        // const id = target.dataset.id
+        let { type, field } = target.dataset
 
-        //  find checked
-        if (type === 'checkbox') value = target.checked
+        mail[field] = !mail[field]
 
-        // TODO FIND mail[field] and change its value
-        console.log('mail[field]: ', mail[field])
+        if (type === 'checkbox') mail[field] = target.checked
 
-        // console.log('target: ',target)
-        // console.log('id: ',id)
-        // console.log('type: ',type)
-        console.log('field: ', field)
-        // console.log('value: ',value)
+        setMail((prevMail) => ({ ...prevMail, [field]: mail[field] }))
 
-        // setMails(prevMail)
+        mailService
+          .save(mail)
+          .then((mailSaved) => console.log('The mail has been updated '))
+          .catch((err) => console.log('The mail has NOT been updated ', err))
 
+        // TODO:
         // find mail
         // update mail
         // save and return mail
+
+        // render the mail
+        // update the mail into the mails service
       }
 
       return (
@@ -64,23 +51,28 @@ export function MailIndex({ mails, setMails }) {
 
           <input
             type="checkbox"
+            checked={isSelected || false}
+            className="mail-checkbox"
             data-type="checkbox"
             data-field="isSelected"
-            data-value={isSelected || false}
-            onClick={handleChange}
+            onChange={handleChange}
           />
           <span
+            className={`mail-star ${isStar ? 'starred' : ''}`}
             data-field="isStar"
-            data-value={isStar || false}
+            value={isStar || false}
             onClick={handleChange}
           >
-            {starActive}
+            {/* {starActive} */}
+            {isStar ? '⭐' : '☆'}
           </span>
-          <span>{from}</span>
-          <span>{subject}</span>
-          <span>{body}</span>
+          <span className="mail-from">{from}</span>
+          <span className="mail-subject">{subject}</span>
+          <span className="mail-body">{body}</span>
           {/* createdAt || sentAt */}
-          <span>{new Date(createdAt).toLocaleDateString('he')}</span>
+          
+          <span className="mail-date">{new Date(createdAt).toLocaleDateString('he')}</span>
+          <button className="mail-delete" onClick={() => handleDelete(id)}>🗑️</button>
         </div>
       )
     })

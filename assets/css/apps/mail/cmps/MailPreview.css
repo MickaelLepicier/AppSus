@@ -1,0 +1,71 @@
+.mail-item {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  border-bottom: 1px solid #e0e0e0;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.mail-item:hover {
+  background-color: #f1f3f4;
+}
+
+.mail-checkbox {
+  margin-right: 12px;
+}
+
+.mail-star {
+  margin-right: 12px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.mail-star.starred {
+  color: gold;
+}
+
+.mail-from,
+.mail-subject,
+.mail-body,
+.mail-date {
+  margin-right: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mail-from {
+  font-weight: bold;
+  min-width: 120px;
+}
+
+.mail-subject {
+  min-width: 200px;
+}
+
+.mail-body {
+  flex-grow: 1;
+  min-width: 300px;
+  color: #5f6368;
+}
+
+.mail-date {
+  min-width: 80px;
+  text-align: right;
+  color: #5f6368;
+  /* float: right; */
+}
+
+.mail-delete {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: #5f6368;
+  /* float: right; */
+}
+
+.mail-delete:hover {
+  color: red;
+}

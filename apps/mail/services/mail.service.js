@@ -30,6 +30,8 @@ const mailsData = [
     subject: 'Miss you!',
     body: 'Would love to catch up sometimes',
     isRead: false,
+    isStar: false,
+    isSelected: false,
     sentAt: 1551133930594,
     removedAt: null,
     from: 'momo@momo.com',
@@ -41,6 +43,8 @@ const mailsData = [
     subject: 'SECOND MAIL!',
     body: 'You are amazing and yada yada!!',
     isRead: false,
+    isStar: false,
+    isSelected: false,
     sentAt: 1551133930594,
     removedAt: null,
     from: 'bobo@bobo.com',
@@ -52,6 +56,8 @@ const mailsData = [
     subject: 'THIRD MAIL',
     body: 'YuGiOh for all time longgggg!!',
     isRead: false,
+    isStar: false,
+    isSelected: false,
     sentAt: 1551133930594,
     removedAt: null,
     from: 'roro@roro.com',
@@ -93,8 +99,10 @@ function remove(mailId) {
 
 function save(mail) {
   if (mail.id) {
+    // console.log('put');
     return put(mail)
   } else {
+    // console.log('post');
     return post(mail)
   }
 }

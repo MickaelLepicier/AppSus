@@ -3,6 +3,18 @@
 // MailNavBar
 // MailIndex
 
+
+// UNTIL THIRSDAY :
+// Do more Branches 
+// orginze the code with MailsList ...
+// crud - add and delete mails
+// css for the mails
+
+// filter from the search bar and navBar
+// Update mail in draft
+// notes for Neama in the github (insie the projects)
+// create in the NoteIndex the basic functions for Neama to start
+
 import { mailService } from '../services/mail.service.js'
 import { MailHeader } from '../cmps/MailHeader.jsx'
 import { MailCompose } from '../cmps/MailCompose.jsx'
@@ -13,7 +25,6 @@ const { useState, useEffect, useRef } = React
 
 const { useNavigate, Link, useSearchParams } = ReactRouterDOM
 
-// TODO make MailIndex - look at bookIndex
 
 export function MailPage() {
   const [mails, setMails] = useState([])
