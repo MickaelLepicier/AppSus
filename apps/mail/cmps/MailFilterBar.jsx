@@ -1,13 +1,23 @@
-export function MailNavBar({ onHandleSelect }) {
+
+const { useNavigate, Link, useSearchParams } = ReactRouterDOM
+
+
+export function MailFilterBar({ onHandleSelect }) {
   // TODO
   // make ['Inbox', 'Starred'...].map(....) or with a function
   // put inbox as a default
 
   return (
-    <section className="mail-navBar-container">
-      <button className="compose-btn" onClick={() => onHandleSelect('compose')}>
+    <section className="mail-filterBar-container">
+     
+     {/* no need - onHandleSelect('compose') because I use Link */}
+     <Link to="/mail/edit">
+      {/* <button className="compose-btn" onClick={() => onHandleSelect('compose')}> */}
+      <button className="compose-btn" >
         <i className="fas fa-pen"></i> Compose
       </button>
+     </Link>
+
 
       <p onClick={() => onHandleSelect('index')}>
         <img src="/apps/mail/img/icon/inbox.png" alt="icon-img" />

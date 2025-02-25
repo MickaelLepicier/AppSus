@@ -1,4 +1,4 @@
-export function MailFilter({ filterBy , handleSearch}) {
+export function MailFilterSearch({ filterBy , handleSearch}) {
   return (
     <section className="search-bar-container">
       <i className="fas fa-search search-icon"></i>

@@ -1,4 +1,4 @@
-import { MailFilter } from '../cmps/MailFilter.jsx'
+import { MailFilterSearch } from './MailFilterSearch.jsx'
 
 export function MailHeader({ setIsWide }) {
   return (
@@ -13,7 +13,7 @@ export function MailHeader({ setIsWide }) {
         <span> Gmail</span>
       </h1>
 
-      <MailFilter />
+      <MailFilterSearch />
     </section>
   )
 }
