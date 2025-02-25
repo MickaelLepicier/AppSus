@@ -6,11 +6,11 @@ export function MailList({ mails, handleChange, onRemove }) {
   // TODO change the malis state instead of creating for each mail new state
   // Orgenize the code with copms
 
+if(!mails) return <div>Loading</div>
+
   return (
     <section className="mail-items">
       {mails.map((mail) => {
-        //   const [mail, setMail] = useState({ ...currMail })
-        // console.log('mail: ',mail)
 
         return (
           <Fragment key={mail.id}>

@@ -27,7 +27,7 @@ const { useNavigate, useSearchParams, Link, Outlet } = ReactRouterDOM
 
 export function MailIndex() {
   const [mails, setMails] = useState(null)
-  console.log('mails: ', mails)
+  // console.log('mails: ', mails)
 
   // const [filterBy, setFilterBy] = useState(searchParams)
   const [filterBy, setFilterBy] = useState({})
@@ -64,50 +64,33 @@ export function MailIndex() {
   }
 
   function onRemove(mailId) {
+    // TODO make it work ;)
     console.log('remove')
   }
 
   function handleChange({ target }) {
-    let { id, type, field } = target.dataset
-    console.log('handle: ', id, type, field)
+    let { type, name: field, value } = target
+    const id = target.dataset.id
 
-    // Fix bug
+    if (type === 'checkbox') value = target.checked
+    // console.log(type, field, value);
+
     setMails((prevMails) => {
-      prevMails.map((mail) => {
-        if (mail.id === id) {
-          mailService
-            .save(mail)
-            .then((mail) => console.log('The mail has been updated: ', mail))
-            .catch((err) =>
-              console.log('The mail has Not been updated: ', err)
-            )
-
-          return { ...mail, [field]: mail }
-        } else return mail
-        //  return mail.id === id ? {...mail, [field] : mail} : mail
-      })
+      return prevMails.map((mail) => (mail.id === id ? { ...mail, [field]: value } : mail))
     })
 
-    //TODO find mail with id and change it with setMail
+    const mail = mails.find((mail) => mail.id === id)
+    if (!mail) {
+      console.log('Could not find the mail')
+      return
+    }
 
-    // mail[field] = !mail[field]
+    const updatedMail = { ...mail, [field]: value }
 
-    // if (type === 'checkbox') mail[field] = target.checked
-
-    // setMail((prevMail) => ({ ...prevMail, [field]: mail[field] }))
-
-    // mailService
-    //   .save(mail)
-    //   .then((mailSaved) => console.log('The mail has been updated '))
-    //   .catch((err) => console.log('The mail has NOT been updated ', err))
-
-    // TODO:
-    // find mail
-    // update mail
-    // save and return mail
-
-    // render the mail
-    // update the mail into the mails service
+    mailService
+      .save(updatedMail)
+      .then((mail) => console.log('The mail has been updated: ', mail))
+      .catch((err) => console.log('Failed to updated the mail: ', err))
   }
 
   if (!mails) return <div>Loading...</div>
@@ -121,11 +104,7 @@ export function MailIndex() {
 
         {/* {getSelectedComp()} no need because I use Link */}
 
-        <MailList
-          mails={mails}
-          handleChange={handleChange}
-          onRemove={onRemove}
-        />
+        <MailList mails={mails} handleChange={handleChange} onRemove={onRemove} />
 
         <Outlet />
       </main>
