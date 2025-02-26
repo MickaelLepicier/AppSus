@@ -77,20 +77,18 @@ function query(filterBy = {}) {
 
     let filteredMails = [...mails]
 
-    if(!filterBy.removedAt){
-      console.log('removedAt: False')
-      filteredMails = filteredMails.filter(mail=> mail.removedAt === null)
+    // if(!filterBy.removedAt){
+    //   console.log('removedAt: False')
+    //   filteredMails = filteredMails.filter(mail=> mail.removedAt === null)
     
-    } else if(filterBy.removedAt){
-      console.log('removedAt: True')
+    // } else if(filterBy.removedAt){
+    //   console.log('removedAt: True')
 
-      filteredMails = filteredMails.filter(mail=> mail.removedAt === true)
-    }
+    //   filteredMails = filteredMails.filter(mail=> mail.removedAt === true)
+    // }
 
 
-    // Filter functionality
-    // if(...)
-    console.log('filteredMails: ',filteredMails)
+    // console.log('filteredMails: ',filteredMails)
     return filteredMails
   })
 }
@@ -164,10 +162,11 @@ function getFilterFromSearchParams(searchParams) {
   // isDraft - check on filterBar
   // removedAt (false - index true - trash)
 
-  const removedAt = searchParams.get('removedAt')
+  // const removedAt = searchParams.get('removedAt')
   // console.log('removedAt: ',removedAt)
 
-  return {removedAt}
+  return {}
+  // return {removedAt}
 }
 
 function _createMails() {
