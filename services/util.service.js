@@ -9,7 +9,7 @@ export const utilService = {
   getLableColor,
   animateCSS,
   loadFromStorage,
-  saveToStorage
+  saveToStorage,
 }
 
 function saveToStorage(key, val) {

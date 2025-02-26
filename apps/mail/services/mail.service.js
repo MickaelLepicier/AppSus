@@ -32,6 +32,7 @@ const mailsData = [
     isRead: false,
     isStar: false,
     isSelected: false,
+    isDraft:false,
     sentAt: 1551133930594,
     removedAt: null,
     from: 'momo@momo.com',
@@ -45,6 +46,7 @@ const mailsData = [
     isRead: false,
     isStar: false,
     isSelected: false,
+    isDraft:false,
     sentAt: 1551133930594,
     removedAt: null,
     from: 'bobo@bobo.com',
@@ -58,6 +60,7 @@ const mailsData = [
     isRead: false,
     isStar: false,
     isSelected: false,
+    isDraft:false,
     sentAt: 1551133930594,
     removedAt: null,
     from: 'roro@roro.com',
@@ -72,11 +75,22 @@ function query(filterBy = {}) {
       utilService.saveToStorage(MAIL_KEY, mails)
     }
 
-    const filteredMails = [...mails]
+    let filteredMails = [...mails]
+
+    if(!filterBy.removedAt){
+      console.log('removedAt: False')
+      filteredMails = filteredMails.filter(mail=> mail.removedAt === null)
+    
+    } else if(filterBy.removedAt){
+      console.log('removedAt: True')
+
+      filteredMails = filteredMails.filter(mail=> mail.removedAt === true)
+    }
+
 
     // Filter functionality
     // if(...)
-
+    console.log('filteredMails: ',filteredMails)
     return filteredMails
   })
 }
@@ -141,7 +155,20 @@ function getDefaultFilter() {
 //   lables: ['important', 'romantic']
 // }
 
-function getFilterFromSearchParams() {}
+function getFilterFromSearchParams(searchParams) {
+  // subject - check on filterSearch
+  // body - check on filterSearch
+
+  // isStar - check on filterBar
+  // from - from === loggedinUser.email
+  // isDraft - check on filterBar
+  // removedAt (false - index true - trash)
+
+  const removedAt = searchParams.get('removedAt')
+  // console.log('removedAt: ',removedAt)
+
+  return {removedAt}
+}
 
 function _createMails() {
   const mails = utilService.loadFromStorage(MAIL_KEY) || []
@@ -157,6 +184,7 @@ function _createMails() {
       isRead: false,
       isStar: false,
       isSelected: false,
+      isDraft:false,
       sentAt: 1551133930594,
       removedAt: null,
       from: 'momo@momo.com',

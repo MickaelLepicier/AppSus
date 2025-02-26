@@ -1,6 +1,4 @@
-
 const { useNavigate, Link, useSearchParams } = ReactRouterDOM
-
 
 export function MailFilterBar({ onHandleSelect }) {
   // TODO
@@ -9,40 +7,48 @@ export function MailFilterBar({ onHandleSelect }) {
 
   return (
     <section className="mail-filterBar-container">
-     
-     {/* no need - onHandleSelect('compose') because I use Link */}
-     <Link to="/mail/edit">
-      {/* <button className="compose-btn" onClick={() => onHandleSelect('compose')}> */}
-      <button className="compose-btn" >
-        <i className="fas fa-pen"></i> Compose
-      </button>
-     </Link>
+      {/* no need - onHandleSelect('compose') because I use Link */}
+      <Link to="/mail/edit">
+        {/* <button className="compose-btn" onClick={() => onHandleSelect('compose')}> */}
+        <button className="compose-btn">
+          <i className="fas fa-pen"></i> Compose
+        </button>
+      </Link>
 
+      <Link to="/mail/inbox">
+        <p>
+          <img src="/apps/mail/img/icon/inbox.png" alt="icon-img" />
+          <span>Inbox</span>
+        </p>
+      </Link>
 
-      <p onClick={() => onHandleSelect('index')}>
-        <img src="/apps/mail/img/icon/inbox.png" alt="icon-img" />
-        <span>Inbox</span>
-      </p>
+      <Link to="/mail/starred">
+        <p>
+          <img src="/apps/mail/img/icon/star.png" alt="icon-img" />
+          <span>Starred</span>
+        </p>
+      </Link>
 
-      <p onClick={() => onHandleSelect('star')}>
-        <img src="/apps/mail/img/icon/star.png" alt="icon-img" />
-        <span>Starred</span>
-      </p>
+      <Link to="/mail/sent">
+        <p>
+          <img src="/apps/mail/img/icon/sent.png" alt="icon-img" />
+          <span>Sent</span>
+        </p>
+      </Link>
 
-      <p value="sent">
-        <img src="/apps/mail/img/icon/sent.png" alt="icon-img" />
-        <span>Sent</span>
-      </p>
+      <Link to="/mail/edit:mailId">
+        <p>
+          <img src="/apps/mail/img/icon/draft.png" alt="icon-img" />
+          <span>Draft</span>
+        </p>
+      </Link>
 
-      <p value="draft">
-        <img src="/apps/mail/img/icon/draft.png" alt="icon-img" />
-        <span>Draft</span>
-      </p>
-
-      <p value="trash">
-        <img src="/apps/mail/img/icon/trash.png" alt="icon-img" />
-        <span>Trash</span>
-      </p>
+      <Link to="/mail/trash">
+        <p>
+          <img src="/apps/mail/img/icon/trash.png" alt="icon-img" />
+          <span>Trash</span>
+        </p>
+      </Link>
     </section>
   )
 }

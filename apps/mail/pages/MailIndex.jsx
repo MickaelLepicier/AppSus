@@ -26,11 +26,14 @@ const { useState, useEffect, useRef } = React
 const { useNavigate, useSearchParams, Link, Outlet } = ReactRouterDOM
 
 export function MailIndex() {
+  const [searchParams, setSearchParams] = useSearchParams()
+
   const [mails, setMails] = useState(null)
   // console.log('mails: ', mails)
 
-  // const [filterBy, setFilterBy] = useState(searchParams)
-  const [filterBy, setFilterBy] = useState({})
+  const [filterBy, setFilterBy] = useState(
+    mailService.getFilterFromSearchParams(searchParams)
+  )
 
   // const [mailId, setMailId] = useState('')
   // const [mailsSelected, setMailsSelected] = useState([])
@@ -39,8 +42,9 @@ export function MailIndex() {
   const [isWide, setIsWide] = useState(false)
 
   useEffect(() => {
+    setSearchParams(filterBy)
     loadMails()
-  }, [])
+  }, [filterBy])
 
   function loadMails() {
     mailService
@@ -51,21 +55,58 @@ export function MailIndex() {
       })
   }
 
-  function getSelectedComp() {
-    const compsMap = {
-      compose: <MailCompose />,
-      index: <MailList />,
-      star: <div>Star</div>,
-      sent: <div>sent</div>,
-      draft: <div>draft</div>,
-      trash: <div>trash</div>
-    }
-    return compsMap[selectedComp]
-  }
+  // function trashFilter(mails){
+  //   const
+  // }
+
 
   function onRemove(mailId) {
     // TODO make it work ;)
-    console.log('remove')
+    // console.log('remove')
+
+    // check if the removedAt is true if yes run mailService
+    // .remove if not return
+
+    const mail = mails.find((mail) => mail.id === mailId)
+    if (!mail) {
+      console.log('Failed to find the mail')
+      return
+    }
+    // console.log('mail: ',mail.removedAt)
+
+    if (!mail.removedAt) {
+      const updatedMail = { ...mail, removedAt: true }
+
+      setMails((prevMails) =>
+        prevMails.map((mail) => (mail.id === mailId ? updatedMail : mail))
+      )
+
+      mailService
+        .save(updatedMail)
+        .then((mail) => {
+          console.log('Mail Updated', mail)
+         
+          // showSuccessMsg('Mail has been removed to Trash')
+        })
+        .catch((err) => {
+          console.log('Fail to Update', err)
+          // showErrorMsg('Mail has not been Deleted')
+          // navigate('/mail')
+        })
+      return
+    }
+
+    mailService
+      .remove(mailId)
+      .then(() => {
+        setMails((prevMails) => prevMails.filter((mail) => mail.id !== mailId))
+        // showSuccessMsg('Mail has been Deleted')
+      })
+      .catch((err) => {
+        console.log('Fail to delete the mail', err)
+        // showErrorMsg('Mail has not been Deleted')
+        // navigate('/mail')
+      })
   }
 
   function handleChange({ target }) {
@@ -76,7 +117,9 @@ export function MailIndex() {
     // console.log(type, field, value);
 
     setMails((prevMails) => {
-      return prevMails.map((mail) => (mail.id === id ? { ...mail, [field]: value } : mail))
+      return prevMails.map((mail) =>
+        mail.id === id ? { ...mail, [field]: value } : mail
+      )
     })
 
     const mail = mails.find((mail) => mail.id === id)
@@ -101,12 +144,8 @@ export function MailIndex() {
 
       <main>
         <MailFilterBar onHandleSelect={setSelectedComp} />
-
-        {/* {getSelectedComp()} no need because I use Link */}
-
-        <MailList mails={mails} handleChange={handleChange} onRemove={onRemove} />
-
-        <Outlet />
+        
+        <Outlet context={{ mails, handleChange, onRemove }} />
       </main>
     </section>
   )
