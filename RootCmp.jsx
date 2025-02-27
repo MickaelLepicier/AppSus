@@ -8,9 +8,6 @@ import { Home } from './pages/Home.jsx'
 import { MailIndex } from './apps/mail/pages/MailIndex.jsx'
 import { MailCompose } from './apps/mail/cmps/MailCompose.jsx'
 import { MailInbox, MailStarred, MailSent, MailTrash } from './apps/mail/cmps/FilterBarComps.jsx'
-// import { MailStarred } from './apps/mail/cmps/MailStarred.jsx'
-// import { MailSent } from './apps/mail/cmps/MailSent.jsx'
-// import { MailTrash } from './apps/mail/cmps/MailTrash.jsx'
 
 import { NoteIndex } from './apps/note/pages/NoteIndex.jsx'
 

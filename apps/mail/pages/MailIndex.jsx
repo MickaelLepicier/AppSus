@@ -12,19 +12,17 @@
 
 import { mailService } from '../services/mail.service.js'
 import { MailHeader } from '../cmps/MailHeader.jsx'
-// import { MailCompose } from '../cmps/MailCompose.jsx'
+import { MailCompose } from '../cmps/MailCompose.jsx'
 import { MailFilterBar } from '../cmps/MailFilterBar.jsx'
 // import { MailList } from '../cmps/MailList.jsx'
-import {
-  showErrorMsg,
-  showSuccessMsg
-} from '../../../services/event-bus.service.js'
+import { showErrorMsg, showSuccessMsg } from '../../../services/event-bus.service.js'
 
 const { useState, useEffect, useRef } = React
 
 const { useNavigate, useSearchParams, Link, Outlet } = ReactRouterDOM
 
 export function MailIndex() {
+
   const [searchParams, setSearchParams] = useSearchParams()
 
   const [mails, setMails] = useState(null)
@@ -37,7 +35,8 @@ export function MailIndex() {
   // const [mailId, setMailId] = useState('')
   // const [mailsSelected, setMailsSelected] = useState([])
 
-  const [selectedComp, setSelectedComp] = useState('index')
+  const [isCompose, setIsCompose] = useState(false)
+  
   const [isWide, setIsWide] = useState(false)
 
   const navigate = useNavigate()
@@ -125,6 +124,7 @@ export function MailIndex() {
 
   if (!mails) return <div>Loading...</div>
 
+  // console.log('isCompose: ',isCompose)
   return (
     <section className="mail-index-container">
       <MailHeader
@@ -134,9 +134,14 @@ export function MailIndex() {
       />
 
       <main>
-        <MailFilterBar onHandleSelect={setSelectedComp} />
+        
+        <MailFilterBar setIsCompose={setIsCompose} />
 
         <Outlet context={{ mails, handleChange, onRemove }} />
+     
+     {/* {isCompose && <MailCompose/>} */}
+     {/* <MailCompose/> */}
+     
       </main>
     </section>
   )
