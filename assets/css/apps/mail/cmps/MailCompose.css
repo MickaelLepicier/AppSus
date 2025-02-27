@@ -30,7 +30,7 @@
   cursor: pointer;
 }
 
-input,
+.modal-content input,
 textarea {
   display: block;
   width: 95%;

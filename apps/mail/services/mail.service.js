@@ -23,6 +23,8 @@ export const mailService = {
 
 window.ms = mailService
 
+// TODO no need for isDraft I have sentAt for this
+// removedAt is not true but timestemp
 const mailsData = [
   {
     id: 'e101',
@@ -120,6 +122,7 @@ function remove(mailId) {
 }
 
 function save(mail) {
+  console.log('mail: ',mail);
   if (mail.id) {
     // console.log('put');
     return put(mail)
@@ -131,7 +134,7 @@ function save(mail) {
 
 function getEmptyMail(to = '', subject = '', body = '') {
   return {
-    id: utilService.makeId(),
+    // id: utilService.makeId(),
     createdAt: Date.now(),
     subject,
     body,

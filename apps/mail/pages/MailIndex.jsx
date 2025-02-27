@@ -1,14 +1,15 @@
 // TODOs:
 
 // Do more Branches
-// orginze the code with MailsList ...
-// crud - add and delete mails
-// css for the mails
 
-// filter from the search bar and navBar
+// css for the mails:
+// hover on the mails unhidden trash btn and read\unread btn
+// line the squer and the star in the mail
+// css the compose btn
 // Update mail in draft
-// notes for Neama in the github (insie the projects)
-// create in the NoteIndex the basic functions for Neama to start
+
+// notes for Naama in the github (insie the projects)
+// create in the NoteIndex the basic functions for Naama to start
 
 import { mailService } from '../services/mail.service.js'
 import { MailHeader } from '../cmps/MailHeader.jsx'
@@ -22,21 +23,21 @@ const { useState, useEffect, useRef } = React
 const { useNavigate, useSearchParams, Link, Outlet } = ReactRouterDOM
 
 export function MailIndex() {
-
   const [searchParams, setSearchParams] = useSearchParams()
+  // TODO use searchParams for the compose comp
+  // mail?compose=new
+  // mail?compose=mailId
 
   const [mails, setMails] = useState(null)
   // console.log('mails: ', mails)
 
-  const [filterBy, setFilterBy] = useState(
-    mailService.getFilterFromSearchParams(searchParams)
-  )
+  const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchParams))
 
   // const [mailId, setMailId] = useState('')
   // const [mailsSelected, setMailsSelected] = useState([])
 
   const [isCompose, setIsCompose] = useState(false)
-  
+
   const [isWide, setIsWide] = useState(false)
 
   const navigate = useNavigate()
@@ -66,9 +67,7 @@ export function MailIndex() {
     if (!mail.removedAt) {
       const updatedMail = { ...mail, removedAt: true }
 
-      setMails((prevMails) =>
-        prevMails.map((mail) => (mail.id === mailId ? updatedMail : mail))
-      )
+      setMails((prevMails) => prevMails.map((mail) => (mail.id === mailId ? updatedMail : mail)))
 
       mailService
         .save(updatedMail)
@@ -106,9 +105,7 @@ export function MailIndex() {
     // console.log(type, field, value);
 
     setMails((prevMails) => {
-      return prevMails.map((mail) =>
-        mail.id === id ? { ...mail, [field]: value } : mail
-      )
+      return prevMails.map((mail) => (mail.id === id ? { ...mail, [field]: value } : mail))
     })
 
     const mail = mails.find((mail) => mail.id === id)
@@ -127,21 +124,15 @@ export function MailIndex() {
   // console.log('isCompose: ',isCompose)
   return (
     <section className="mail-index-container">
-      <MailHeader
-        setIsWide={setIsWide}
-        filterBy={filterBy}
-        onSetFilter={onSetFilter}
-      />
+      <MailHeader setIsWide={setIsWide} filterBy={filterBy} onSetFilter={onSetFilter} />
 
       <main>
-        
         <MailFilterBar setIsCompose={setIsCompose} />
 
         <Outlet context={{ mails, handleChange, onRemove }} />
-     
-     {/* {isCompose && <MailCompose/>} */}
-     {/* <MailCompose/> */}
-     
+
+        {/* {isCompose && <MailCompose/>} */}
+        {/* <MailCompose/> */}
       </main>
     </section>
   )

@@ -1,8 +1,11 @@
+import { showErrorMsg, showSuccessMsg } from '../../../services/event-bus.service.js'
 import { mailService } from '../services/mail.service.js'
 
 const { useState, useEffect, useRef } = React
 
 const { useParams, useNavigate, Link } = ReactRouterDOM
+
+// const { useNavigate, useSearchParams, Link, Outlet } = ReactRouterDOM
 
 export function MailCompose() {
   // TODOs
@@ -39,7 +42,22 @@ export function MailCompose() {
 
     console.log('submit clicked ')
     // onSend(mail)
-    // onClose()
+
+    const msg = mailId ? 'Updated' : 'Added'
+
+    // console.log('mailsssss: ', mail)
+
+    // TODO reRender the mailIndex
+    mailService
+      .save(mail)
+      .then(() => {
+        showSuccessMsg(`The mail is ${msg}`)
+      })
+      .catch((err) => {
+        console.log(err)
+        showErrorMsg(`The mail didn't ${msg}`)
+      })
+      .finally(onClose)
   }
 
   function handleChange({ target }) {
@@ -66,14 +84,7 @@ export function MailCompose() {
         </header>
 
         <form onSubmit={handleSubmit}>
-          <input
-            type="email"
-            name="to"
-            placeholder="To"
-            value={mail.to || ''}
-            onChange={handleChange}
-            required
-          />
+          <input type="email" name="to" placeholder="To" value={mail.to || ''} onChange={handleChange} required />
           <input
             type="text"
             name="subject"
