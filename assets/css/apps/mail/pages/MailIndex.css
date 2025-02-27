@@ -96,34 +96,3 @@
     color: #5f6368;
   }
   
-  /* MailFilterBar */
-  
-  .mail-filterBar-container {
-    /* display: flex;
-    flex-direction: column;*/
-    flex-grow: 1;
-  
-    max-width: 200px;
-    /* min-height: 100vh; */
-    padding: 1em;
-    background-color: lightgrey;
-  }
-  
-  .mail-filterBar-container p {
-    /* max-width: 200px; */
-    display: flex;
-    gap: 1em;
-    margin: 0.5em;
-    padding: 0.4em;
-    border-radius: 10px;
-    cursor: pointer;
-  }
-  
-  .mail-filterBar-container img {
-    max-width: 15px;
-  }
-  
-  .mail-filterBar-container p:hover {
-    background-color: grey;
-  }
-  

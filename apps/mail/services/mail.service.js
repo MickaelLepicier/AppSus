@@ -32,7 +32,7 @@ const mailsData = [
     isRead: false,
     isStar: false,
     isSelected: false,
-    isDraft:false,
+    isDraft: false,
     sentAt: 1551133930594,
     removedAt: null,
     from: 'momo@momo.com',
@@ -42,11 +42,11 @@ const mailsData = [
     id: 'e102',
     createdAt: 1551133930500,
     subject: 'SECOND MAIL!',
-    body: 'You are amazing and yada yada!!',
+    body: 'You are amazing and mikey Miss you!!',
     isRead: false,
     isStar: false,
     isSelected: false,
-    isDraft:false,
+    isDraft: false,
     sentAt: 1551133930594,
     removedAt: null,
     from: 'bobo@bobo.com',
@@ -60,7 +60,7 @@ const mailsData = [
     isRead: false,
     isStar: false,
     isSelected: false,
-    isDraft:false,
+    isDraft: false,
     sentAt: 1551133930594,
     removedAt: null,
     from: 'roro@roro.com',
@@ -77,18 +77,28 @@ function query(filterBy = {}) {
 
     let filteredMails = [...mails]
 
+    if (filterBy.subject) {
+      const regExp = new RegExp(filterBy.subject, 'i')
+
+      filteredMails = filteredMails.filter(
+        (mail) =>
+          regExp.test(mail.subject) ||
+          regExp.test(mail.body) ||
+          regExp.test(mail.from)
+      )
+    }
+
     // if(!filterBy.removedAt){
     //   console.log('removedAt: False')
     //   filteredMails = filteredMails.filter(mail=> mail.removedAt === null)
-    
+
     // } else if(filterBy.removedAt){
     //   console.log('removedAt: True')
 
     //   filteredMails = filteredMails.filter(mail=> mail.removedAt === true)
     // }
 
-
-    // console.log('filteredMails: ',filteredMails)
+    // console.log('filteredMails: ', filteredMails)
     return filteredMails
   })
 }
@@ -119,24 +129,19 @@ function save(mail) {
   }
 }
 
-function getEmptyMail(
-  createdAt = '',
-  subject = '',
-  body = '',
-  isRead = false,
-  sentAt = '',
-  removedAt = null,
-  from = '',
-  to = ''
-) {
+function getEmptyMail(to = '', subject = '', body = '') {
   return {
-    createdAt,
+    id: utilService.makeId(),
+    createdAt: Date.now(),
     subject,
     body,
-    isRead,
-    sentAt,
-    removedAt,
-    from,
+    isRead: false,
+    isStar: false,
+    isSelected: false,
+    isDraft: false,
+    sentAt: Date.now(),
+    removedAt: null,
+    from: loggedinUser.email,
     to
   }
 }
@@ -165,7 +170,9 @@ function getFilterFromSearchParams(searchParams) {
   // const removedAt = searchParams.get('removedAt')
   // console.log('removedAt: ',removedAt)
 
-  return {}
+  const subject = searchParams.get('subject') || ''
+
+  return { subject }
   // return {removedAt}
 }
 
@@ -183,7 +190,7 @@ function _createMails() {
       isRead: false,
       isStar: false,
       isSelected: false,
-      isDraft:false,
+      isDraft: false,
       sentAt: 1551133930594,
       removedAt: null,
       from: 'momo@momo.com',

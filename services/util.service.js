@@ -8,6 +8,7 @@ export const utilService = {
   getMonthName,
   getLableColor,
   animateCSS,
+  debounce,
   loadFromStorage,
   saveToStorage,
 }
@@ -144,4 +145,14 @@ function animateCSS(el, animation = 'bounce') {
 
     el.addEventListener('animationend', handleAnimationEnd, { once: true })
   })
+}
+
+function debounce(callback, wait) {
+  let timeoutId = null
+  return (...args) => {
+    window.clearTimeout(timeoutId)
+    timeoutId = window.setTimeout(() => {
+      callback(...args)
+    }, wait)
+  }
 }

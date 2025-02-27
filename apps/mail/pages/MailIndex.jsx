@@ -1,10 +1,5 @@
 // TODOs:
-// MailIndex
 
-// MailFilterSearch
-// MailFilterBar
-
-// UNTIL THIRSDAY :
 // Do more Branches
 // orginze the code with MailsList ...
 // crud - add and delete mails
@@ -17,10 +12,13 @@
 
 import { mailService } from '../services/mail.service.js'
 import { MailHeader } from '../cmps/MailHeader.jsx'
-import { MailCompose } from '../cmps/MailCompose.jsx'
+// import { MailCompose } from '../cmps/MailCompose.jsx'
 import { MailFilterBar } from '../cmps/MailFilterBar.jsx'
-import { MailList } from '../cmps/MailList.jsx'
-import { showErrorMsg, showSuccessMsg } from '../../../services/event-bus.service.js'
+// import { MailList } from '../cmps/MailList.jsx'
+import {
+  showErrorMsg,
+  showSuccessMsg
+} from '../../../services/event-bus.service.js'
 
 const { useState, useEffect, useRef } = React
 
@@ -32,7 +30,9 @@ export function MailIndex() {
   const [mails, setMails] = useState(null)
   // console.log('mails: ', mails)
 
-  const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchParams))
+  const [filterBy, setFilterBy] = useState(
+    mailService.getFilterFromSearchParams(searchParams)
+  )
 
   // const [mailId, setMailId] = useState('')
   // const [mailsSelected, setMailsSelected] = useState([])
@@ -56,17 +56,20 @@ export function MailIndex() {
       })
   }
 
+  function onSetFilter(filterByToEdit) {
+    setFilterBy((prevFilter) => ({ ...prevFilter, ...filterByToEdit }))
+  }
+
   function onRemove(mailId) {
     const mail = mails.find((mail) => mail.id === mailId)
-    if (!mail) {
-      console.log('Failed to find the mail')
-      return
-    }
+    if (!mail) console.log('Failed to find the mail')
 
     if (!mail.removedAt) {
       const updatedMail = { ...mail, removedAt: true }
 
-      setMails((prevMails) => prevMails.map((mail) => (mail.id === mailId ? updatedMail : mail)))
+      setMails((prevMails) =>
+        prevMails.map((mail) => (mail.id === mailId ? updatedMail : mail))
+      )
 
       mailService
         .save(updatedMail)
@@ -104,20 +107,19 @@ export function MailIndex() {
     // console.log(type, field, value);
 
     setMails((prevMails) => {
-      return prevMails.map((mail) => (mail.id === id ? { ...mail, [field]: value } : mail))
+      return prevMails.map((mail) =>
+        mail.id === id ? { ...mail, [field]: value } : mail
+      )
     })
 
     const mail = mails.find((mail) => mail.id === id)
-    if (!mail) {
-      console.log('Could not find the mail')
-      return
-    }
+    if (!mail) console.log('Could not find the mail')
 
     const updatedMail = { ...mail, [field]: value }
 
     mailService
       .save(updatedMail)
-      .then((mail) => console.log('The mail has been updated: '))
+      .then((mail) => console.log('The mail has been updated'))
       .catch((err) => console.log('Failed to updated the mail: ', err))
   }
 
@@ -125,7 +127,11 @@ export function MailIndex() {
 
   return (
     <section className="mail-index-container">
-      <MailHeader setIsWide={setIsWide} />
+      <MailHeader
+        setIsWide={setIsWide}
+        filterBy={filterBy}
+        onSetFilter={onSetFilter}
+      />
 
       <main>
         <MailFilterBar onHandleSelect={setSelectedComp} />

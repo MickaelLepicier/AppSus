@@ -1,6 +1,7 @@
 import { MailFilterSearch } from './MailFilterSearch.jsx'
 
-export function MailHeader({ setIsWide }) {
+export function MailHeader({ setIsWide, filterBy, onSetFilter }) {
+ 
   return (
     <section className="mail-header">
       <i
@@ -13,7 +14,7 @@ export function MailHeader({ setIsWide }) {
         <span> Gmail</span>
       </h1>
 
-      <MailFilterSearch />
+      <MailFilterSearch filterBy={filterBy} onSetFilter={onSetFilter}/>
     </section>
   )
 }

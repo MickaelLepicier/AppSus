@@ -6,13 +6,8 @@ const { Fragment } = React
 
 
 export function MailList({ mails, handleChange, onRemove }) {
-  // TODO change the malis state instead of creating for each mail new state
-  // Orgenize the code with copms
 
-//  const { mails, handleChange, onRemove } = useOutletContext()
-  // console.log('mails: ',mails)
-  
-if(!mails) return <div>Loading</div>
+if(!mails) return <div>Loading...</div>
 
   return (
     <section className="mail-items">
@@ -20,6 +15,7 @@ if(!mails) return <div>Loading</div>
 
         return (
           <Fragment key={mail.id}>
+             {/* TODO - input type="checkbox" to catch all */}
             <MailPreview
               mail={mail}
               onRemove={onRemove}
