@@ -7,7 +7,10 @@ const { useNavigate, useSearchParams, useOutletContext, Link } = ReactRouterDOM
 export function MailInbox() {
   const { mails, handleChange, onRemove } = useOutletContext()
 
-  const filteredMails = getFilteredMails(mails, 'removedAt', null)
+  let filteredMails = getFilteredMails(mails, 'from', 'user@appsus.com', false)
+  filteredMails = getFilteredMails(filteredMails, 'removedAt', null)
+
+  // if(mail.from === 'user@appsus.com') return
 
   if (!filteredMails || !filteredMails.length) return <div>There are no mails</div>
 
@@ -62,6 +65,7 @@ export function MailTrash() {
   )
 }
 
-function getFilteredMails(mails, field, booleon) {
-  return mails.filter((mail) => mail[field] === booleon)
+function getFilteredMails(mails, field, booleon, isEqual = true) {
+  if (isEqual) return mails.filter((mail) => mail[field] === booleon)
+  else return mails.filter((mail) => mail[field] !== booleon)
 }

@@ -24,6 +24,8 @@ const { useNavigate, useSearchParams, Link, Outlet } = ReactRouterDOM
 
 export function MailIndex() {
   const [searchParams, setSearchParams] = useSearchParams()
+  const composeParam = searchParams.get('compose')
+
   // TODO use searchParams for the compose comp
   // mail?compose=new
   // mail?compose=mailId
@@ -36,13 +38,34 @@ export function MailIndex() {
   // const [mailId, setMailId] = useState('')
   // const [mailsSelected, setMailsSelected] = useState([])
 
-  const [isCompose, setIsCompose] = useState(false)
+  // const [isCompose, setIsCompose] = useState(false)
 
   const [isWide, setIsWide] = useState(false)
 
   const navigate = useNavigate()
 
+  // useEffect(() => {
+  //   console.log('Current search params:', searchParams.toString())
+  //   console.log('composeParam:', composeParam)
+  // }, [searchParams])
+
+  //   useEffect(() => {
+  //   console.log('Search params updated:', searchParams.toString())
+  //   console.log('composeParam:', composeParam)
+  // }, [searchParams])
+
   useEffect(() => {
+    // setSearchParams((prevParams) => {
+    //   const newParams = new URLSearchParams(prevParams)
+    //   Object.entries(filterBy).forEach(([key, value]) => {
+    //     if (value) {
+    //       newParams.set(key, value)
+    //     } else {
+    //       newParams.delete(key)
+    //     }
+    //   })
+    //   return newParams
+    // })
     setSearchParams(filterBy)
     loadMails()
   }, [filterBy])
@@ -54,6 +77,19 @@ export function MailIndex() {
       .catch((err) => {
         console.log('Could not get the Mails Data: ', err)
       })
+  }
+
+  function openCompose(mailId = 'new') {
+    setSearchParams({compose:mailId})
+
+  }
+
+  function closeCompose() {
+    setSearchParams((prevParams) => {
+      const newParams = new URLSearchParams(prevParams)
+      newParams.delete('compose')
+      return newParams
+    })
   }
 
   function onSetFilter(filterByToEdit) {
@@ -121,17 +157,18 @@ export function MailIndex() {
 
   if (!mails) return <div>Loading...</div>
 
-  // console.log('isCompose: ',isCompose)
+
   return (
     <section className="mail-index-container">
       <MailHeader setIsWide={setIsWide} filterBy={filterBy} onSetFilter={onSetFilter} />
 
       <main>
-        <MailFilterBar setIsCompose={setIsCompose} />
+        <MailFilterBar openCompose={openCompose} />
 
         <Outlet context={{ mails, handleChange, onRemove }} />
 
-        {/* {isCompose && <MailCompose/>} */}
+        {composeParam && <MailCompose mailId={composeParam} onClose={closeCompose} />}
+        {/* {<MailCompose mailId={composeParam} onClose={closeCompose} />} */}
         {/* <MailCompose/> */}
       </main>
     </section>

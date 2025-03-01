@@ -7,7 +7,7 @@ const { useParams, useNavigate, Link } = ReactRouterDOM
 
 // const { useNavigate, useSearchParams, Link, Outlet } = ReactRouterDOM
 
-export function MailCompose() {
+export function MailCompose({ mailId, onClose }) {
   // TODOs
   // Make it happen ;)
   // Edit and Add component
@@ -17,45 +17,43 @@ export function MailCompose() {
   // this modal has - form with: to, subject and body
   // add a mail to the list
 
-  // mailService.getEmptyMail
-
   const [mail, setMail] = useState(mailService.getEmptyMail())
 
-  const { mailId } = useParams()
+  console.log('mailId: ', mailId)
 
-  const navigate = useNavigate()
+  // const { mailId } = useParams()
+
+  // const navigate = useNavigate()
 
   // const header = mail.subject || 'New Message'
 
   useEffect(() => {
-    if (!mailId) return
+    if (mailId === 'new') return
 
     loadMail()
-  }, [])
+  }, [mailId])
 
   function loadMail() {
-    mailService.get(mailId).then(setMail)
+    mailService
+      .get(mailId)
+      .then(setMail)
+      .catch((err) => console.log('Fail to load the mail: ', err))
   }
 
   function handleSubmit(ev) {
     ev.preventDefault()
 
-    console.log('submit clicked ')
-    // onSend(mail)
+    const msg = mailId === 'new' ? 'Added' : 'Updated'
 
-    const msg = mailId ? 'Updated' : 'Added'
-
-    // console.log('mailsssss: ', mail)
-
-    // TODO reRender the mailIndex
     mailService
       .save(mail)
       .then(() => {
         showSuccessMsg(`The mail is ${msg}`)
+        onClose()
       })
       .catch((err) => {
         console.log(err)
-        showErrorMsg(`The mail didn't ${msg}`)
+        showErrorMsg(`Fail to ${msg} the mail`)
       })
       .finally(onClose)
   }
@@ -65,19 +63,17 @@ export function MailCompose() {
     setMail((prevMail) => ({ ...prevMail, [field]: value }))
   }
 
-  function onClose() {
-    //
-    navigate('/mail/inbox')
-  }
-
   if (!mail) return <div>Loading...</div>
+
+  // TODO draft, close-btn send them to draft
+  // make the height of the textarea to the bottom
 
   return (
     // <section className="mail-edit-container">
     <section className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <header className="modal-header">
-          <h2>'New Message'</h2>
+          <h2>{mailId === 'new' ? 'New Message' : 'Edit Message'}</h2>
           <button className="close-btn" onClick={onClose}>
             &times;
           </button>

@@ -1,27 +1,30 @@
 const { useNavigate, Link, useSearchParams } = ReactRouterDOM
 
-export function MailFilterBar({ setIsCompose }) {
+export function MailFilterBar({ openCompose }) {
   // TODO
   // make ['Inbox', 'Starred'...].map(....) or with a function
   // put inbox as a default
 
-  function onSetCompose() {
-    setIsCompose((prevCompose) => !prevCompose)
-  }
+  const navigate = useNavigate()
+
+function onCompose(){
+  openCompose()
+  // navigate('/mail?compose=new')
+}
 
   return (
     <section className="mail-filterBar-container">
       {/* no need - onHandleSelect('compose') because I use Link */}
 
-      {/* <button className="compose-btn" onClick={onSetCompose}>
+      <button className="compose-btn" onClick={onCompose}>
           <i className="fas fa-pen"></i> Compose
-        </button> */}
+        </button>
 
-      <Link to="/mail/edit">
+      {/* <Link to="/mail/edit">
         <button className="compose-btn">
           <i className="fas fa-pen"></i> Compose
         </button>
-      </Link>
+      </Link> */}
 
       <Link to="/mail/inbox">
         <p>

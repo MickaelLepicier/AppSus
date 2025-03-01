@@ -12,7 +12,6 @@ if(!mails) return <div>Loading...</div>
   return (
     <section className="mail-items">
       {mails.map((mail) => {
-
         return (
           <Fragment key={mail.id}>
              {/* TODO - input type="checkbox" to catch all */}

@@ -162,16 +162,6 @@ function getDefaultFilter() {
 // }
 
 function getFilterFromSearchParams(searchParams) {
-  // subject - check on filterSearch
-  // body - check on filterSearch
-
-  // isStar - check on filterBar
-  // from - from === loggedinUser.email
-  // isDraft - check on filterBar
-  // removedAt (false - index true - trash)
-
-  // const removedAt = searchParams.get('removedAt')
-  // console.log('removedAt: ',removedAt)
 
   const subject = searchParams.get('subject') || ''
 
