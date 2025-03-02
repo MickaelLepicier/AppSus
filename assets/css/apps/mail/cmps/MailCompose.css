@@ -1,23 +1,11 @@
 .modal-overlay {
-  /* position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center; */
 
   position: fixed;
-  /* top: 0; */
-  /* left: 0; */
+  right: 20px;
   bottom: 0;
   width: 100vw;
   height: 50vh;
 
-  /* height: 100%; */
-  /* background: rgba(0, 0, 0, 0.5); */
   display: flex;
   justify-content: right;
 }
@@ -42,9 +30,10 @@
   cursor: pointer;
 }
 
-.modal-content form{
+.modal-content form {
   display: flex;
   flex-direction: column;
+  min-height: 95%;
 }
 
 .modal-content input,
@@ -53,15 +42,10 @@ textarea {
   width: 95%;
   margin-bottom: 10px;
   padding: 8px;
-  
 }
 
 .modal-content textarea {
-  /* TODO make the height up to the bottom */
-  
- flex-grow: 1;
-  /* min-height: 22vh; */
-  /* min-height: 100%; */
+  flex-grow: 1;
 }
 
 .send-btn {

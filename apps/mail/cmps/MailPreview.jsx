@@ -1,5 +1,11 @@
-export function MailPreview({ mail, onRemove, handleChange }) {
-  const { id, createdAt, subject, body, isRead, isStar, isSelected, sentAt, removedAt, from, to } = mail
+
+const { useNavigate } = ReactRouterDOM
+
+
+export function MailPreview({ mail, onRemove, handleChange, openCompose }) {
+  const { id, createdAt, subject, body, isRead, isStar, isSelected, isDraft, sentAt, removedAt, from, to } = mail
+
+  const navigate = useNavigate()
 
   let sentFrom = from
   if (mail.from === 'user@appsus.com'){
@@ -23,6 +29,14 @@ export function MailPreview({ mail, onRemove, handleChange }) {
     handleChange({ target })
   }
 
+  function mailClicked(){
+    if(isDraft){
+      openCompose(id)
+      return
+    }
+    
+    navigate('/mail/details')
+  }
  
 
     return (
@@ -46,12 +60,17 @@ export function MailPreview({ mail, onRemove, handleChange }) {
           {/* {starActive} */}
           {isStar ? '⭐' : '☆'}
         </span>
+
+        <div onClick={mailClicked}>
+
         <span className="mail-from">{sentFrom}</span>
         <span className="mail-subject">{subject}</span>
         <span className="mail-body">{body}</span>
         {/* createdAt || sentAt */}
 
         <span className="mail-date">{new Date(createdAt).toLocaleDateString('he')}</span>
+    
+        </div>
 
         <button className="mail-remove-btn" onClick={() => onRemove(id)}>
           <img src="/apps/mail/img/icon/trash.png" alt="icon-img" className="trash-icon" />

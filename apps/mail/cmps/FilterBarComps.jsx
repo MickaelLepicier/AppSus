@@ -9,14 +9,20 @@ export function MailInbox() {
 
   let filteredMails = getFilteredMails(mails, 'from', 'user@appsus.com', false)
   filteredMails = getFilteredMails(filteredMails, 'removedAt', null)
+  filteredMails = getFilteredMails(mails, 'isDraft', false)
 
   // if(mail.from === 'user@appsus.com') return
 
-  if (!filteredMails || !filteredMails.length) return <div>There are no mails</div>
+  if (!filteredMails || !filteredMails.length)
+    return <div>There are no mails</div>
 
   return (
     <section className="inbox-container">
-      <MailList mails={filteredMails} handleChange={handleChange} onRemove={onRemove} />
+      <MailList
+        mails={filteredMails}
+        handleChange={handleChange}
+        onRemove={onRemove}
+      />
     </section>
   )
 }
@@ -26,11 +32,16 @@ export function MailStarred() {
   let filteredMails = getFilteredMails(mails, 'isStar', true)
   filteredMails = getFilteredMails(filteredMails, 'removedAt', null)
 
-  if (!filteredMails || !filteredMails.length) return <div>There are no mails</div>
+  if (!filteredMails || !filteredMails.length)
+    return <div>There are no mails</div>
 
   return (
     <section className="inbox-container">
-      <MailList mails={filteredMails} handleChange={handleChange} onRemove={onRemove} />
+      <MailList
+        mails={filteredMails}
+        handleChange={handleChange}
+        onRemove={onRemove}
+      />
     </section>
   )
 }
@@ -42,11 +53,38 @@ export function MailSent() {
   let filteredMails = getFilteredMails(mails, 'from', 'user@appsus.com')
   filteredMails = getFilteredMails(filteredMails, 'removedAt', null)
 
-  if (!filteredMails || !filteredMails.length) return <div>There are no mails</div>
+  if (!filteredMails || !filteredMails.length)
+    return <div>There are no mails</div>
 
   return (
     <section className="inbox-container">
-      <MailList mails={filteredMails} handleChange={handleChange} onRemove={onRemove} />
+      <MailList
+        mails={filteredMails}
+        handleChange={handleChange}
+        onRemove={onRemove}
+      />
+    </section>
+  )
+}
+
+export function MailDraft() {
+  const { mails, handleChange, onRemove, openCompose } = useOutletContext()
+
+  // loggedinUser.email = 'user@appsus.com'
+  let filteredMails = getFilteredMails(mails, 'isDraft', true)
+  filteredMails = getFilteredMails(filteredMails, 'removedAt', null)
+
+  if (!filteredMails || !filteredMails.length)
+    return <div>There are no mails</div>
+
+  return (
+    <section className="draft-container">
+      <MailList
+        mails={filteredMails}
+        handleChange={handleChange}
+        onRemove={onRemove}
+        openCompose={openCompose}
+      />
     </section>
   )
 }
@@ -56,16 +94,21 @@ export function MailTrash() {
 
   const filteredMails = getFilteredMails(mails, 'removedAt', true)
 
-  if (!filteredMails || !filteredMails.length) return <div>There are no mails in the trash</div>
+  if (!filteredMails || !filteredMails.length)
+    return <div>There are no mails in the trash</div>
 
   return (
     <section className="trash-container">
-      <MailList mails={filteredMails} handleChange={handleChange} onRemove={onRemove} />
+      <MailList
+        mails={filteredMails}
+        handleChange={handleChange}
+        onRemove={onRemove}
+      />
     </section>
   )
 }
 
-function getFilteredMails(mails, field, booleon, isEqual = true) {
-  if (isEqual) return mails.filter((mail) => mail[field] === booleon)
-  else return mails.filter((mail) => mail[field] !== booleon)
+function getFilteredMails(mails, field, boolean, isEqual = true) {
+  if (isEqual) return mails.filter((mail) => mail[field] === boolean)
+  else return mails.filter((mail) => mail[field] !== boolean)
 }

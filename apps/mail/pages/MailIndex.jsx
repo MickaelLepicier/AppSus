@@ -81,7 +81,6 @@ export function MailIndex() {
 
   function openCompose(mailId = 'new') {
     setSearchParams({compose:mailId})
-
   }
 
   function closeCompose() {
@@ -165,9 +164,9 @@ export function MailIndex() {
       <main>
         <MailFilterBar openCompose={openCompose} />
 
-        <Outlet context={{ mails, handleChange, onRemove }} />
+        <Outlet context={{ mails, handleChange, onRemove, openCompose }} />
 
-        {composeParam && <MailCompose mailId={composeParam} onClose={closeCompose} />}
+        {composeParam && <MailCompose mailId={composeParam} setMails={setMails} onClose={closeCompose} />}
         {/* {<MailCompose mailId={composeParam} onClose={closeCompose} />} */}
         {/* <MailCompose/> */}
       </main>

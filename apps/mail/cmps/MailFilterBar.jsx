@@ -14,17 +14,10 @@ function onCompose(){
 
   return (
     <section className="mail-filterBar-container">
-      {/* no need - onHandleSelect('compose') because I use Link */}
 
       <button className="compose-btn" onClick={onCompose}>
           <i className="fas fa-pen"></i> Compose
         </button>
-
-      {/* <Link to="/mail/edit">
-        <button className="compose-btn">
-          <i className="fas fa-pen"></i> Compose
-        </button>
-      </Link> */}
 
       <Link to="/mail/inbox">
         <p>
@@ -47,7 +40,7 @@ function onCompose(){
         </p>
       </Link>
 
-      <Link to="/mail/edit:mailId">
+      <Link to="/mail/draft">
         <p>
           <img src="/apps/mail/img/icon/draft.png" alt="icon-img" />
           <span>Draft</span>

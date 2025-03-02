@@ -1,4 +1,7 @@
-import { showErrorMsg, showSuccessMsg } from '../../../services/event-bus.service.js'
+import {
+  showErrorMsg,
+  showSuccessMsg
+} from '../../../services/event-bus.service.js'
 import { mailService } from '../services/mail.service.js'
 
 const { useState, useEffect, useRef } = React
@@ -7,7 +10,7 @@ const { useParams, useNavigate, Link } = ReactRouterDOM
 
 // const { useNavigate, useSearchParams, Link, Outlet } = ReactRouterDOM
 
-export function MailCompose({ mailId, onClose }) {
+export function MailCompose({ mailId, setMails, onClose }) {
   // TODOs
   // Make it happen ;)
   // Edit and Add component
@@ -19,7 +22,7 @@ export function MailCompose({ mailId, onClose }) {
 
   const [mail, setMail] = useState(mailService.getEmptyMail())
 
-  console.log('mailId: ', mailId)
+  // console.log('mailId: ', mailId)
 
   // const { mailId } = useParams()
 
@@ -40,6 +43,7 @@ export function MailCompose({ mailId, onClose }) {
       .catch((err) => console.log('Fail to load the mail: ', err))
   }
 
+  // TODO render the page after I click submit or close
   function handleSubmit(ev) {
     ev.preventDefault()
 
@@ -47,7 +51,9 @@ export function MailCompose({ mailId, onClose }) {
 
     mailService
       .save(mail)
-      .then(() => {
+      .then((mailSaved) => {
+        // console.log('mailSaved: ',mailSaved)
+        setTheMails(mailSaved)
         showSuccessMsg(`The mail is ${msg}`)
         onClose()
       })
@@ -63,24 +69,70 @@ export function MailCompose({ mailId, onClose }) {
     setMail((prevMail) => ({ ...prevMail, [field]: value }))
   }
 
+  function saveAndClose() {
+    // save mail with isDraft true
+
+    mail.isDraft = true
+
+    mailService
+      .save(mail)
+      .then((mailSaved) => {
+        setTheMails(mailSaved)
+        showSuccessMsg(`The mail is in the Draft`)
+        onClose()
+      })
+      .catch((err) => {
+        console.log(err)
+        showErrorMsg(`Fail to sent to the Draft`)
+      })
+      .finally(onClose)
+
+    // onClose()
+  }
+
+  function setTheMails(mailSaved) {
+    setMails((prevMails) => {
+      const idx = prevMails.findIndex((m) => m.id === mailId)
+      if (idx !== -1) {
+        const updateMails = [...prevMails]
+        updateMails[idx] = mailSaved
+        return updateMails
+      } else {
+        return [mailSaved, ...prevMails]
+      }
+    })
+  }
+
   if (!mail) return <div>Loading...</div>
 
   // TODO draft, close-btn send them to draft
-  // make the height of the textarea to the bottom
+
+  /*
+
+
+
+  */
 
   return (
     // <section className="mail-edit-container">
-    <section className="modal-overlay" onClick={onClose}>
+    <section className="modal-overlay">
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <header className="modal-header">
           <h2>{mailId === 'new' ? 'New Message' : 'Edit Message'}</h2>
-          <button className="close-btn" onClick={onClose}>
+          <button className="close-btn" onClick={saveAndClose}>
             &times;
           </button>
         </header>
 
         <form onSubmit={handleSubmit}>
-          <input type="email" name="to" placeholder="To" value={mail.to || ''} onChange={handleChange} required />
+          <input
+            type="email"
+            name="to"
+            placeholder="To"
+            value={mail.to || ''}
+            onChange={handleChange}
+            required
+          />
           <input
             type="text"
             name="subject"

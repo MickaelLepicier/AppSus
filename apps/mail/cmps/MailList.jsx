@@ -5,20 +5,22 @@ const { Fragment } = React
 // const {useOutletContext} = ReactRouterDOM
 
 
-export function MailList({ mails, handleChange, onRemove }) {
+export function MailList({ mails, handleChange, onRemove, openCompose }) {
 
 if(!mails) return <div>Loading...</div>
 
   return (
     <section className="mail-items">
-      {mails.map((mail) => {
+      {mails.map((mail, index) => {
+        // console.log('mail.id: ',mail.id)
         return (
-          <Fragment key={mail.id}>
+          <Fragment key={index}>
              {/* TODO - input type="checkbox" to catch all */}
             <MailPreview
               mail={mail}
-              onRemove={onRemove}
               handleChange={handleChange}
+              onRemove={onRemove}
+              openCompose={openCompose}
             />
 
             {/* <button className="mail-delete" onClick={() => onRemove(id)}>🗑️</button> */}

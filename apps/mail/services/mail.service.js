@@ -124,10 +124,10 @@ function remove(mailId) {
 function save(mail) {
   console.log('mail: ',mail);
   if (mail.id) {
-    // console.log('put');
+    console.log('put');
     return put(mail)
   } else {
-    // console.log('post');
+    console.log('post');
     return post(mail)
   }
 }
