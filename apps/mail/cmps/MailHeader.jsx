@@ -2,6 +2,8 @@ import { MailFilterSearch } from './MailFilterSearch.jsx'
 
 export function MailHeader({ setIsWide, filterBy, onSetFilter }) {
  
+function test(){}
+
   return (
     <section className="mail-header">
       <i
