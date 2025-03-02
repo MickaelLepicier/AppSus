@@ -1,6 +1,6 @@
 const { useNavigate, Link, useSearchParams } = ReactRouterDOM
 
-export function MailFilterBar({ openCompose }) {
+export function MailFilterBar({ openCompose, isWide }) {
   // TODO
   // make ['Inbox', 'Starred'...].map(....) or with a function
   // put inbox as a default
@@ -12,11 +12,13 @@ function onCompose(){
   // navigate('/mail?compose=new')
 }
 
+const isCollapse = isWide ? '' : 'collapsed'
+
   return (
-    <section className="mail-filterBar-container">
+    <section className={`mail-filterBar-container ${isCollapse}`}>
 
       <button className="compose-btn" onClick={onCompose}>
-          <i className="fas fa-pen"></i> Compose
+          <i className="fas fa-pen"></i> <span>Compose</span> 
         </button>
 
       <Link to="/mail/inbox">

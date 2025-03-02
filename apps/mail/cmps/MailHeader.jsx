@@ -1,6 +1,6 @@
 import { MailFilterSearch } from './MailFilterSearch.jsx'
 
-export function MailHeader({ setIsWide, filterBy, onSetFilter }) {
+export function MailHeader({ onSetIsWide, filterBy, onSetFilter }) {
  
 function test(){
   // test test
@@ -10,7 +10,7 @@ function test(){
     <section className="mail-header">
       <i
         className="fas fa-bars wide-btn"
-        onClick={() => setIsWide(!isWide)}
+        onClick={() => onSetIsWide()}
       ></i>
 
       <h1 className="logo-container">

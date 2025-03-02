@@ -26,10 +26,6 @@ export function MailIndex() {
   const [searchParams, setSearchParams] = useSearchParams()
   const composeParam = searchParams.get('compose')
 
-  // TODO use searchParams for the compose comp
-  // mail?compose=new
-  // mail?compose=mailId
-
   const [mails, setMails] = useState(null)
   // console.log('mails: ', mails)
 
@@ -40,32 +36,13 @@ export function MailIndex() {
 
   // const [isCompose, setIsCompose] = useState(false)
 
-  const [isWide, setIsWide] = useState(false)
+  const [isWide, setIsWide] = useState(true)
+
+
 
   const navigate = useNavigate()
 
-  // useEffect(() => {
-  //   console.log('Current search params:', searchParams.toString())
-  //   console.log('composeParam:', composeParam)
-  // }, [searchParams])
-
-  //   useEffect(() => {
-  //   console.log('Search params updated:', searchParams.toString())
-  //   console.log('composeParam:', composeParam)
-  // }, [searchParams])
-
   useEffect(() => {
-    // setSearchParams((prevParams) => {
-    //   const newParams = new URLSearchParams(prevParams)
-    //   Object.entries(filterBy).forEach(([key, value]) => {
-    //     if (value) {
-    //       newParams.set(key, value)
-    //     } else {
-    //       newParams.delete(key)
-    //     }
-    //   })
-    //   return newParams
-    // })
     setSearchParams(filterBy)
     loadMails()
   }, [filterBy])
@@ -77,6 +54,10 @@ export function MailIndex() {
       .catch((err) => {
         console.log('Could not get the Mails Data: ', err)
       })
+  }
+
+  function onSetIsWide(){
+    setIsWide(!isWide)
   }
 
   function openCompose(mailId = 'new') {
@@ -108,7 +89,6 @@ export function MailIndex() {
         .save(updatedMail)
         .then((mail) => {
           // console.log('Mail Updated', mail)
-
           showSuccessMsg('Mail has been removed to Trash')
         })
         .catch((err) => {
@@ -137,7 +117,6 @@ export function MailIndex() {
     const id = target.dataset.id
 
     if (type === 'checkbox') value = target.checked
-    // console.log(type, field, value);
 
     setMails((prevMails) => {
       return prevMails.map((mail) => (mail.id === id ? { ...mail, [field]: value } : mail))
@@ -154,41 +133,23 @@ export function MailIndex() {
       .catch((err) => console.log('Failed to updated the mail: ', err))
   }
 
+  const isCollapse = isWide ? '' : 'collapse'
   if (!mails) return <div>Loading...</div>
 
 
   return (
     <section className="mail-index-container">
-      <MailHeader setIsWide={setIsWide} filterBy={filterBy} onSetFilter={onSetFilter} />
+      <MailHeader onSetIsWide={onSetIsWide} filterBy={filterBy} onSetFilter={onSetFilter} />
 
-      <main>
-        <MailFilterBar openCompose={openCompose} />
+      <main className={isCollapse}>
+        <MailFilterBar openCompose={openCompose} isWide={isWide} />
 
         <Outlet context={{ mails, handleChange, onRemove, openCompose }} />
 
         {composeParam && <MailCompose mailId={composeParam} setMails={setMails} onClose={closeCompose} />}
-        {/* {<MailCompose mailId={composeParam} onClose={closeCompose} />} */}
-        {/* <MailCompose/> */}
+
       </main>
     </section>
   )
 }
 
-/*
-
-{
-    id: 'e101',
-    createdAt: 1551133930500,    // date at the end
-    subject: 'Miss you!',       // Title at the second part
-    body: 'Would love to catch up sometimes', // third part
-    isRead: false,             // change the background
-    isStar: false,            // send to Starred comp
-    isSelected: false,       // select the 
-    sentAt: 1551133930594,
-    removedAt: null,          // send to trash
-    from: 'momo@momo.com', // first part
-    to: 'user@appsus.com'
-  },
-
-  
-*/
