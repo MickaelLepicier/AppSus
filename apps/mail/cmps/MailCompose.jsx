@@ -1,7 +1,4 @@
-import {
-  showErrorMsg,
-  showSuccessMsg
-} from '../../../services/event-bus.service.js'
+import { showErrorMsg, showSuccessMsg } from '../../../services/event-bus.service.js'
 import { mailService } from '../services/mail.service.js'
 
 const { useState, useEffect, useRef } = React
@@ -70,8 +67,11 @@ export function MailCompose({ mailId, setMails, onClose }) {
   }
 
   function saveAndClose() {
-    // save mail with isDraft true
-
+    if (!mail.to && !mail.subject && !mail.body){
+      onClose()
+      return
+    }
+    
     mail.isDraft = true
 
     mailService
@@ -105,7 +105,6 @@ export function MailCompose({ mailId, setMails, onClose }) {
 
   if (!mail) return <div>Loading...</div>
 
-
   return (
     // <section className="mail-edit-container">
     <section className="modal-overlay">
@@ -118,14 +117,7 @@ export function MailCompose({ mailId, setMails, onClose }) {
         </header>
 
         <form onSubmit={handleSubmit}>
-          <input
-            type="email"
-            name="to"
-            placeholder="To"
-            value={mail.to || ''}
-            onChange={handleChange}
-            required
-          />
+          <input type="email" name="to" placeholder="To" value={mail.to || ''} onChange={handleChange} required />
           <input
             type="text"
             name="subject"
