@@ -30,6 +30,7 @@ export function MailPreview({ mail, onRemove, handleChange, openCompose }) {
   }
 
   function mailClicked(){
+    // if(isDraft && openCompose){
     if(isDraft){
       openCompose(id)
       return

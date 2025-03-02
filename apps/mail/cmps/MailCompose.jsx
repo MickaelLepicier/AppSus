@@ -105,13 +105,6 @@ export function MailCompose({ mailId, setMails, onClose }) {
 
   if (!mail) return <div>Loading...</div>
 
-  // TODO draft, close-btn send them to draft
-
-  /*
-
-
-
-  */
 
   return (
     // <section className="mail-edit-container">
