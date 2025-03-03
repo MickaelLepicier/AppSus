@@ -20,6 +20,7 @@ if(!mails) return <div>Loading...</div>
               mail={mail}
               handleChange={handleChange}
               onRemove={onRemove}
+              onRead={onRead}
               openCompose={openCompose}
             />
 

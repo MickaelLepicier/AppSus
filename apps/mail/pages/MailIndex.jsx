@@ -16,7 +16,10 @@ import { MailHeader } from '../cmps/MailHeader.jsx'
 import { MailCompose } from '../cmps/MailCompose.jsx'
 import { MailFilterBar } from '../cmps/MailFilterBar.jsx'
 // import { MailList } from '../cmps/MailList.jsx'
-import { showErrorMsg, showSuccessMsg } from '../../../services/event-bus.service.js'
+import {
+  showErrorMsg,
+  showSuccessMsg
+} from '../../../services/event-bus.service.js'
 
 const { useState, useEffect, useRef } = React
 
@@ -29,7 +32,9 @@ export function MailIndex() {
   const [mails, setMails] = useState(null)
   // console.log('mails: ', mails)
 
-  const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchParams))
+  const [filterBy, setFilterBy] = useState(
+    mailService.getFilterFromSearchParams(searchParams)
+  )
 
   // const [mailId, setMailId] = useState('')
   // const [mailsSelected, setMailsSelected] = useState([])
@@ -37,8 +42,6 @@ export function MailIndex() {
   // const [isCompose, setIsCompose] = useState(false)
 
   const [isWide, setIsWide] = useState(true)
-
-
 
   const navigate = useNavigate()
 
@@ -56,12 +59,12 @@ export function MailIndex() {
       })
   }
 
-  function onSetIsWide(){
+  function onSetIsWide() {
     setIsWide(!isWide)
   }
 
   function openCompose(mailId = 'new') {
-    setSearchParams({compose:mailId})
+    setSearchParams({ compose: mailId })
   }
 
   function closeCompose() {
@@ -83,7 +86,9 @@ export function MailIndex() {
     if (!mail.removedAt) {
       const updatedMail = { ...mail, removedAt: true }
 
-      setMails((prevMails) => prevMails.map((mail) => (mail.id === mailId ? updatedMail : mail)))
+      setMails((prevMails) =>
+        prevMails.map((mail) => (mail.id === mailId ? updatedMail : mail))
+      )
 
       mailService
         .save(updatedMail)
@@ -96,6 +101,7 @@ export function MailIndex() {
           showErrorMsg('Mail has not been Deleted')
           navigate('/mail')
         })
+
       return
     }
 
@@ -112,12 +118,26 @@ export function MailIndex() {
       })
   }
 
-function onRead(mailId){
-  const mail = mails.find((mail) => mail.id === mailId)
-  if (!mail) console.log('Failed to find the mail')
+  function onRead(mailId) {
+    const mail = mails.find((mail) => mail.id === mailId)
+    if (!mail) {
+      console.log('Failed to find the mail')
+      return
+    }
 
-    // TODO keep on this
-}
+    const updatedMail = { ...mail, isRead: !mail.isRead }
+
+    setMails((prevMails) =>
+      prevMails.map((mail) => (mail.id === mailId ? updatedMail : mail))
+    )
+
+    mailService
+      .save(updatedMail)
+      .then()
+      .catch((err) => {
+        console.log('Fail to update the read, unread', err)
+      })
+  }
 
   function handleChange({ target }) {
     let { type, name: field, value } = target
@@ -126,7 +146,9 @@ function onRead(mailId){
     if (type === 'checkbox') value = target.checked
 
     setMails((prevMails) => {
-      return prevMails.map((mail) => (mail.id === id ? { ...mail, [field]: value } : mail))
+      return prevMails.map((mail) =>
+        mail.id === id ? { ...mail, [field]: value } : mail
+      )
     })
 
     const mail = mails.find((mail) => mail.id === id)
@@ -143,20 +165,29 @@ function onRead(mailId){
   const isCollapse = isWide ? '' : 'collapse'
   if (!mails) return <div>Loading...</div>
 
-
   return (
     <section className="mail-index-container">
-      <MailHeader onSetIsWide={onSetIsWide} filterBy={filterBy} onSetFilter={onSetFilter} />
+      <MailHeader
+        onSetIsWide={onSetIsWide}
+        filterBy={filterBy}
+        onSetFilter={onSetFilter}
+      />
 
       <main className={isCollapse}>
         <MailFilterBar openCompose={openCompose} isWide={isWide} />
 
-        <Outlet context={{ mails, handleChange, onRemove, onRead, openCompose }} />
+        <Outlet
+          context={{ mails, handleChange, onRemove, onRead, openCompose }}
+        />
 
-        {composeParam && <MailCompose mailId={composeParam} setMails={setMails} onClose={closeCompose} />}
-
+        {composeParam && (
+          <MailCompose
+            mailId={composeParam}
+            setMails={setMails}
+            onClose={closeCompose}
+          />
+        )}
       </main>
     </section>
   )
 }
-
