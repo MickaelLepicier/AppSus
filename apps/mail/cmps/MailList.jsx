@@ -5,7 +5,7 @@ const { Fragment } = React
 // const {useOutletContext} = ReactRouterDOM
 
 
-export function MailList({ mails, handleChange, onRemove, openCompose }) {
+export function MailList({ mails, handleChange, onRemove, onRead, openCompose }) {
 
 if(!mails) return <div>Loading...</div>
 

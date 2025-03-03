@@ -7,6 +7,10 @@
 .mail-item {
   display: flex;
   align-items: center;
+
+  justify-content: space-between;
+  position: relative;
+
   height: 10px;
   /* margin-block: 0.1em 0; */
   padding: 12px;
@@ -15,8 +19,14 @@
   transition: background 0.2s;
 }
 
+.mail-item.active {
+  background-color: lightgrey;
+}
+
 .mail-item:hover {
-  background-color: #f1f3f4;
+  box-shadow: rgba(100, 121, 143, 0.12) 0px -1px 0px 0px inset;
+  /* background-color: #f1f3f4; */
+  /* border: 1px solid #e0e0e0; */
 }
 
 .mail-checkbox {
@@ -62,7 +72,22 @@
   min-width: 80px;
   text-align: right;
   color: #5f6368;
-  /* float: right; */
+  position: absolute;
+  right: 0;
+}
+
+.btns-action {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.mail-item:hover .btns-action {
+  opacity: 1;
+}
+
+.mail-item:hover .mail-date {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .mail-delete {
@@ -71,17 +96,16 @@
   font-size: 16px;
   cursor: pointer;
   color: #5f6368;
-  /* float: right; */
 }
 
 .mail-delete:hover {
   color: red;
 }
 
-.mail-remove-btn {
+.btn-action {
   background: none;
   border: none;
-  padding: 4px;
+  /* padding: 4px; */
   cursor: pointer;
   /* display: flex;
   align-items: center;
@@ -91,6 +115,11 @@
 .trash-icon {
   width: 16px;
   height: 16px;
+}
+
+.read-unread-icon {
+  width: 19px;
+  height: 19px;
 }
 
 .mail-remove-btn:hover .trash-icon {

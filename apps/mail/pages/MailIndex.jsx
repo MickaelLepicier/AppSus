@@ -112,6 +112,13 @@ export function MailIndex() {
       })
   }
 
+function onRead(mailId){
+  const mail = mails.find((mail) => mail.id === mailId)
+  if (!mail) console.log('Failed to find the mail')
+
+    // TODO keep on this
+}
+
   function handleChange({ target }) {
     let { type, name: field, value } = target
     const id = target.dataset.id
@@ -144,7 +151,7 @@ export function MailIndex() {
       <main className={isCollapse}>
         <MailFilterBar openCompose={openCompose} isWide={isWide} />
 
-        <Outlet context={{ mails, handleChange, onRemove, openCompose }} />
+        <Outlet context={{ mails, handleChange, onRemove, onRead, openCompose }} />
 
         {composeParam && <MailCompose mailId={composeParam} setMails={setMails} onClose={closeCompose} />}
 

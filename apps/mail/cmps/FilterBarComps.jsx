@@ -3,7 +3,7 @@ import { MailList } from './MailList.jsx'
 const { useOutletContext } = ReactRouterDOM
 
 export function MailInbox() {
-  const { mails, handleChange, onRemove } = useOutletContext()
+  const { mails, handleChange, onRemove,onRead } = useOutletContext()
 
   const filteredMails = mails.filter((mail) => {
     const isFrom = mail['from'] !== 'user@appsus.com'
@@ -23,7 +23,7 @@ export function MailInbox() {
 }
 
 export function MailStarred() {
-  const { mails, handleChange, onRemove } = useOutletContext()
+  const { mails, handleChange, onRemove, onRead } = useOutletContext()
 
   const filteredMails = mails.filter((mail) => {
     const isStar = mail['isStar'] === true
@@ -42,7 +42,7 @@ export function MailStarred() {
 }
 
 export function MailSent() {
-  const { mails, handleChange, onRemove } = useOutletContext()
+  const { mails, handleChange, onRemove,onRead } = useOutletContext()
 
   const filteredMails = mails.filter((mail) => {
     const isFrom = mail['from'] === 'user@appsus.com'
@@ -62,7 +62,7 @@ export function MailSent() {
 }
 
 export function MailDraft() {
-  const { mails, handleChange, onRemove, openCompose } = useOutletContext()
+  const { mails, handleChange, onRemove,onRead, openCompose } = useOutletContext()
 
   const filteredMails = mails.filter((mail) => {
     const isDraft = mail['isDraft'] === true
@@ -81,7 +81,7 @@ export function MailDraft() {
 }
 
 export function MailTrash() {
-  const { mails, handleChange, onRemove } = useOutletContext()
+  const { mails, handleChange, onRemove,onRead } = useOutletContext()
 
   const filteredMails = mails.filter((mail) => mail['removedAt'] === true)
 

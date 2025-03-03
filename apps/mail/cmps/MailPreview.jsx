@@ -2,7 +2,7 @@
 const { useNavigate } = ReactRouterDOM
 
 
-export function MailPreview({ mail, onRemove, handleChange, openCompose }) {
+export function MailPreview({ mail, onRemove, onRead, handleChange, openCompose }) {
   const { id, createdAt, subject, body, isRead, isStar, isSelected, isDraft, sentAt, removedAt, from, to } = mail
 
   const navigate = useNavigate()
@@ -14,6 +14,8 @@ export function MailPreview({ mail, onRemove, handleChange, openCompose }) {
   
   // const starActive = isStar ? '\u2B50' : '\u2606'
   const selectActive = isSelected ? 'select-active' : ''
+
+  const readIcon = isRead ? 'read': 'unread'
 
   function onHandleChange({ target }) {
     if (target.type === 'checkbox') {
@@ -41,7 +43,7 @@ export function MailPreview({ mail, onRemove, handleChange, openCompose }) {
  
 
     return (
-      <div className="mail-item">
+      <div className={`mail-item ${isRead ? 'active': ''}`}>
         <input
           type="checkbox"
           name="isSelected"
@@ -62,20 +64,28 @@ export function MailPreview({ mail, onRemove, handleChange, openCompose }) {
           {isStar ? '⭐' : '☆'}
         </span>
 
-        <div onClick={mailClicked}>
+        {/* <div onClick={mailClicked}> */}
 
-        <span className="mail-from">{sentFrom}</span>
-        <span className="mail-subject">{subject}</span>
-        <span className="mail-body">{body}</span>
+        <span className="mail-from" onClick={mailClicked}>{sentFrom}</span>
+        <span className="mail-subject" onClick={mailClicked}>{subject}</span>
+        <span className="mail-body" onClick={mailClicked}>{body}</span>
         {/* createdAt || sentAt */}
 
-        <span className="mail-date">{new Date(createdAt).toLocaleDateString('he')}</span>
+        <span className="mail-date" onClick={mailClicked}>{new Date(createdAt).toLocaleDateString('he')} </span>
     
-        </div>
+        {/* </div> */}
 
-        <button className="mail-remove-btn" onClick={() => onRemove(id)}>
-          <img src="/apps/mail/img/icon/trash.png" alt="icon-img" className="trash-icon" />
+      <div className="btns-action" >
+
+      <button className="btn-action" onClick={() => onRead(id)}>
+      <img src={`/apps/mail/img/icon/${readIcon}.png`} alt="read-unread-icon" className="read-unread-icon" />
+      </button>
+
+        <button className="btn-action" onClick={() => onRemove(id)}>
+          <img src="/apps/mail/img/icon/trash.png" alt="trash-icon" className="trash-icon" />
         </button>
+      </div>
+
       </div>
     )
 }

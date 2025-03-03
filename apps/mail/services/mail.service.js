@@ -45,7 +45,7 @@ const mailsData = [
     createdAt: 1551133930500,
     subject: 'SECOND MAIL!',
     body: 'You are amazing and mikey Miss you!!',
-    isRead: false,
+    isRead: true,
     isStar: false,
     isSelected: false,
     isDraft: false,
