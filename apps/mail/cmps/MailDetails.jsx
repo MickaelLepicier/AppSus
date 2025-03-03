@@ -11,11 +11,14 @@ export function MailDetails() {
 
   function onClose() {}
 
+console.log('mail: ',mail);
+
   // TODO make functions work + Css
   
   if (!mail) return <div>Loading... </div>
   return (
     <section className="mail-details">
+    
       <header className="mail-details-header">
         <h2>{mail.subject}</h2>
         <button className="close-btn" onClick={onClose}>
@@ -23,20 +26,23 @@ export function MailDetails() {
         </button>
       </header>
 
+    <main>
       <div className="mail-meta">
         <p>
           <strong>From:</strong> {mail.from}
         </p>
-        <p>
+        {/* <p>
           <strong>To:</strong> {mail.to}
-        </p>
-        <p className="mail-date">{mail.date}</p>
+        </p> */}
+        {/* <p className="mail-date">{mail.date}</p> */}
+        <p className="mail-date">3\3\2025</p>
       </div>
 
       <div className="mail-body">
         <p>{mail.body}</p>
       </div>
-
+      </main>
+      
       <footer className="mail-actions">
         <button className="action-btn">Reply</button>
         <button className="action-btn">Forward</button>
