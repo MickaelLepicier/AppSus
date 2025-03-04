@@ -16,7 +16,8 @@
   padding: 12px;
   border-bottom: 1px solid #e0e0e0;
   cursor: pointer;
-  transition: background 0.2s;
+  /* transition: background 0.2s; */
+  transition: box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
 .mail-item.active {
@@ -24,9 +25,8 @@
 }
 
 .mail-item:hover {
-  box-shadow: rgba(100, 121, 143, 0.12) 0px -1px 0px 0px inset;
-  /* background-color: #f1f3f4; */
-  /* border: 1px solid #e0e0e0; */
+  /* box-shadow: rgba(100, 121, 143, 0.12) 0px -1px 0px 0px inset; */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .mail-checkbox {
@@ -105,7 +105,7 @@
 .btn-action {
   /* max-width: 30px; */
   /* font-size: 18px; */
-  
+
   background: none;
   border: none;
   margin: 0 5px;
