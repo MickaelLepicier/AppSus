@@ -58,12 +58,4 @@ textarea {
   cursor: pointer;
 }
 
-.compose-btn {
-  font-size: 16px;
-  padding: 10px 20px;
-  background-color: #1a73e8;
-  color: white;
-  border: none;
-  border-radius: 20px;
-  cursor: pointer;
-}
+

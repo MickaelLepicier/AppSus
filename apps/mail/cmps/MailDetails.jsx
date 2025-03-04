@@ -1,57 +1,56 @@
-const { useOutletContext, useParams } = ReactRouterDOM
+const { useNavigate, useOutletContext, useParams } = ReactRouterDOM
 
 const { useState, useEffect, useRef } = React
 
 export function MailDetails() {
-  const { mails, handleChange, onRemove, onRead } = useOutletContext()
-
+  const { mails, handleChange, onRemove, onRead, openCompose } =
+    useOutletContext()
+  // TODO CSS btns like in compose
   const { mailId } = useParams()
+
+  const navigate = useNavigate()
 
   const mail = mails.find((mail) => mail.id === mailId)
 
-  function onClose() {}
+  console.log('mail: ', mail)
 
-console.log('mail: ',mail);
-
-  // TODO make functions work + Css
-  
   if (!mail) return <div>Loading... </div>
   return (
     <section className="mail-details">
-    
       <header className="mail-details-header">
         <h2>{mail.subject}</h2>
-        <button className="close-btn" onClick={onClose}>
-          &times;
-        </button>
+
+        <div>
+          <button className="btn-action" onClick={() => onRemove(mail.id)}>
+            <img
+              src="/apps/mail/img/icon/trash.png"
+              alt="trash-icon"
+              className="trash-icon"
+            />
+          </button>
+          <button className="btn-action" onClick={() => navigate('/mail/inbox')}>
+            <img src="/apps/mail/img/icon/right-arrow.png" alt="back-icon" className="trash-icon"/>
+          </button>
+        </div>
       </header>
 
-    <main>
       <div className="mail-meta">
         <p>
           <strong>From:</strong> {mail.from}
         </p>
-        {/* <p>
-          <strong>To:</strong> {mail.to}
-        </p> */}
-        {/* <p className="mail-date">{mail.date}</p> */}
-        <p className="mail-date">3\3\2025</p>
+
+        <p className="mail-date">
+          {new Date(mail.createdAt).toLocaleDateString('he')}
+        </p>
       </div>
 
       <div className="mail-body">
         <p>{mail.body}</p>
       </div>
-      </main>
-      
+
       <footer className="mail-actions">
-        <button className="action-btn">Reply</button>
-        <button className="action-btn">Forward</button>
-        <button
-          className="action-btn delete"
-          onClick={() => console.log('Delete mail')}
-        >
-          Delete
-        </button>
+        <button onClick={() => openCompose(mail.id)}>Reply</button>
+        <button onClick={() => openCompose(mail.id)}>Forward</button>
       </footer>
     </section>
   )

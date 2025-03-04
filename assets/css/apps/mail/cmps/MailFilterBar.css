@@ -3,39 +3,40 @@
 
   max-width: 200px;
   padding: 1em;
-  background-color: lightgrey;
+  background-color: #e5e5e5;
 }
+
+
 
 .compose-btn {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-
-  padding: 12px 24px;
+  padding: 10px 20px;
+  font-size: 16px;
   font-weight: bold;
-  font-size: 1rem;
-  color: #001d35;
+  
   border: none;
   border-radius: 10px;
+  color: #5f6368;
+  background-color: #ffffff;
   cursor: pointer;
-  background-color: #c2e7ff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   transition: background-color 0.2s, box-shadow 0.2s;
+
+
 }
 
-.compose-btn i {
+/* .compose-btn i {
   font-size: 1.2rem;
-}
+} */
 
 .compose-btn:hover {
-  background-color: #a1d4f7;
+  /* background-color: #a1d4f7; */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-.compose-btn:active {
+/* .compose-btn:active {
   background-color: #7bbde5;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-}
+} */
 
 .mail-filterBar-container p {
   display: flex;

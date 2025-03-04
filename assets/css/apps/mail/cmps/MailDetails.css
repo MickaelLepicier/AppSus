@@ -1,11 +1,5 @@
 .mail-details {
   background-color: #fff;
-  /* border: 1px solid #e0e0e0;
-  border-radius: 8px; */
-  padding: 20px;
-  /* max-width: 600px;
-  margin: auto;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); */
   animation: slide-in 0.3s ease-out;
 }
 
@@ -19,22 +13,27 @@
 }
 
 .close-btn {
+  max-width: 25px;
+  font-size: 18px;
   background: none;
   border: none;
-  font-size: 18px;
   cursor: pointer;
   color: #5f6368;
 }
 
 .mail-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
   font-size: 0.9rem;
   color: #5f6368;
   margin-bottom: 20px;
 }
 
 .mail-body {
-  font-size: 1rem;
-  line-height: 1.6;
+  justify-items: center;
+  color: black;
 }
 
 .mail-actions {
@@ -43,26 +42,18 @@
   margin-top: 20px;
 }
 
-.action-btn {
-  padding: 10px 16px;
-  font-size: 0.9rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+.mail-actions button {
+  font-size: 16px;
+  padding: 10px 20px;
   background-color: #f1f3f4;
+  color: #444746;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
 }
 
-.action-btn:hover {
+.mail-actions button:hover {
   background-color: #e0e0e0;
-}
-
-.action-btn.delete {
-  background-color: #d93025;
-  color: white;
-}
-
-.action-btn.delete:hover {
-  background-color: #b71c1c;
 }
 
 /* Animation */

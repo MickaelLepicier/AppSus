@@ -89,11 +89,13 @@ export function MailIndex() {
       setMails((prevMails) =>
         prevMails.map((mail) => (mail.id === mailId ? updatedMail : mail))
       )
+      navigate('/mail/inbox')
 
       mailService
         .save(updatedMail)
         .then((mail) => {
           // console.log('Mail Updated', mail)
+
           showSuccessMsg('Mail has been removed to Trash')
         })
         .catch((err) => {
@@ -176,10 +178,12 @@ export function MailIndex() {
       <main className={isCollapse}>
         <MailFilterBar openCompose={openCompose} isWide={isWide} />
 
-        <Outlet
-          context={{ mails, handleChange, onRemove, onRead, openCompose }}
-        />
-
+        <div className="outlet-container">
+          <Outlet
+            context={{ mails, handleChange, onRemove, onRead, openCompose }}
+          />
+        </div>
+        
         {composeParam && (
           <MailCompose
             mailId={composeParam}
