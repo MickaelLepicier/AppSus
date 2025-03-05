@@ -24,7 +24,7 @@
 
   max-width: 600px;
   width: 100%;
-  margin: 0 100px;
+  margin: 0 90px;
   padding: 8px 16px;
   border-radius: 24px;
   background-color: #f1f3f4;
@@ -70,24 +70,26 @@
   display: flex;
   height: 40px;
   padding: 0.5em 1em;
-  gap: 1.5em;
+  /* gap: 1em; */
   background-color: #e5e5e5;
 }
 
 .mail-header .wide-btn {
-  font-size: 1.3em;
+  margin-inline: 0 5px;
+  padding: 12px;
   align-self: center;
-  align-content: center;
-  height: 30px;
 
+  font-size: 1.2em;
+  border-radius: 50%;
   cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 .mail-header i:hover {
-  /* background-color: #5f6368; */
+  background-color: lightgrey;
 }
 
 .outlet-container {
-  padding: 20px;
+  /* padding: 20px; */
   border-radius: 10px;
   background-color: white;
 }

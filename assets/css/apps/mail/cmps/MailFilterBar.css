@@ -1,18 +1,18 @@
 .mail-filterBar-container {
-  flex-grow: 1;
+  /* flex-grow: 1; */
 
-  max-width: 200px;
+  /* max-width: 200px; */
+  /* width: 400px; */
+
   padding: 1em;
   background-color: #e5e5e5;
 }
-
-
 
 .compose-btn {
   padding: 10px 20px;
   font-size: 16px;
   font-weight: bold;
-  
+
   border: none;
   border-radius: 10px;
   color: #5f6368;
@@ -20,8 +20,6 @@
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   transition: background-color 0.2s, box-shadow 0.2s;
-
-
 }
 
 /* .compose-btn i {
@@ -41,6 +39,8 @@
 .mail-filterBar-container p {
   display: flex;
   gap: 1em;
+  align-items: center;
+
   margin: 0.5em;
   padding: 0.4em;
   border-radius: 10px;
@@ -53,7 +53,7 @@
 }
 
 .mail-filterBar-container p:hover {
-  background-color: grey;
+  background-color: lightgray;
 }
 
 .mail-filterBar-container.collapsed {
