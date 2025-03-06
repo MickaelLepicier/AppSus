@@ -11,12 +11,10 @@
   justify-content: space-between;
   position: relative;
 
-  height: 10px;
-  /* margin-block: 0.1em 0; */
+  height: 15px;
   padding: 12px;
   border-bottom: 1px solid #e0e0e0;
   cursor: pointer;
-  /* transition: background 0.2s; */
   transition: box-shadow 0.2s ease, background-color 0.2s ease;
 }
 

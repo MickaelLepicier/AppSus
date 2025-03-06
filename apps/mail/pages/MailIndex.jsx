@@ -1,15 +1,12 @@
 // TODOs:
 
-// Do more Branches
 
-// css for the mails:
-// hover on the mails unhidden trash btn and read\unread btn
-// line the squer and the star in the mail
-// css the compose btn
-// Update mail in draft
+// mobile css
 
-// notes for Naama in the github (insie the projects)
-// create in the NoteIndex the basic functions for Naama to start
+// the rest of the css
+
+
+
 
 import { mailService } from '../services/mail.service.js'
 import { MailHeader } from '../cmps/MailHeader.jsx'

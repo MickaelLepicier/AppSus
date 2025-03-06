@@ -10,7 +10,7 @@ export const utilService = {
   animateCSS,
   debounce,
   loadFromStorage,
-  saveToStorage,
+  saveToStorage
 }
 
 function saveToStorage(key, val) {
@@ -24,7 +24,8 @@ function loadFromStorage(key) {
 
 function makeId(length = 6) {
   var txt = ''
-  const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+  const possible =
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
 
   for (var i = 0; i < length; i++) {
     txt += possible.charAt(Math.floor(Math.random() * possible.length))
@@ -34,39 +35,92 @@ function makeId(length = 6) {
 }
 
 function makeLorem(size = 100) {
+  // const words = [
+  //   'The sky',
+  //   'above',
+  //   'the port',
+  //   'was',
+  //   'the color of television',
+  //   'tuned',
+  //   'to',
+  //   'a dead channel',
+  //   '.',
+  //   'All',
+  //   'this happened',
+  //   'more or less',
+  //   '.',
+  //   'I',
+  //   'had',
+  //   'the story',
+  //   'bit by bit',
+  //   'from various people',
+  //   'and',
+  //   'as generally',
+  //   'happens',
+  //   'in such cases',
+  //   'each time',
+  //   'it',
+  //   'was',
+  //   'a different story',
+  //   '.',
+  //   'It',
+  //   'was',
+  //   'a pleasure',
+  //   'to',
+  //   'burn'
+  // ]
+
   const words = [
-    'The sky',
-    'above',
-    'the port',
-    'was',
-    'the color of television',
-    'tuned',
-    'to',
-    'a dead channel',
-    '.',
-    'All',
-    'this happened',
-    'more or less',
-    '.',
-    'I',
-    'had',
-    'the story',
-    'bit by bit',
-    'from various people',
-    'and',
-    'as generally',
-    'happens',
-    'in such cases',
-    'each time',
-    'it',
-    'was',
-    'a different story',
-    '.',
-    'It',
-    'was',
-    'a pleasure',
-    'to',
-    'burn'
+    'apple',
+    'banana',
+    'cherry',
+    'dog',
+    'elephant',
+    'forest',
+    'grape',
+    'house',
+    'island',
+    'jungle',
+    'kite',
+    'lemon',
+    'mountain',
+    'night',
+    'ocean',
+    'planet',
+    'queen',
+    'river',
+    'sun',
+    'tree',
+    'umbrella',
+    'volcano',
+    'whale',
+    'xylophone',
+    'yellow',
+    'zebra',
+    'cloud',
+    'dream',
+    'energy',
+    'flower',
+    'garden',
+    'horizon',
+    'idea',
+    'journey',
+    'knowledge',
+    'lighthouse',
+    'magic',
+    'nature',
+    'orbit',
+    'peace',
+    'question',
+    'rainbow',
+    'star',
+    'thunder',
+    'universe',
+    'victory',
+    'wonder',
+    'xenon',
+    'year',
+    'zenith'
   ]
   var txt = ''
   while (size > 0) {

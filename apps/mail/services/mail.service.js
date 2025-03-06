@@ -23,8 +23,6 @@ export const mailService = {
 
 window.ms = mailService
 
-// TODO no need for isDraft I have sentAt for this
-// removedAt is not true but timestemp
 const mailsData = [
   {
     id: 'e101',
@@ -43,8 +41,8 @@ const mailsData = [
   {
     id: 'e102',
     createdAt: 1551133930500,
-    subject: 'SECOND MAIL!',
-    body: 'You are amazing and mikey Miss you!!',
+    subject: 'Meeting Reminder',
+    body: 'Do not forget about our meeting tomorrow at 10 AM. Let me know if you have any questions.',
     isRead: true,
     isStar: false,
     isSelected: false,
@@ -72,6 +70,8 @@ const mailsData = [
 
 function query(filterBy = {}) {
   return storageService.query(MAIL_KEY).then((mails) => {
+    // console.log('mails: ',mails)
+
     if (!mails || !mails.length) {
       mails = mailsData
       utilService.saveToStorage(MAIL_KEY, mails)
@@ -158,9 +158,15 @@ function getFilterFromSearchParams(searchParams) {
 function _createMails() {
   const mails = utilService.loadFromStorage(MAIL_KEY) || []
 
-  if (mails || mails.length) return
+  if (mails.length > 0) return
 
   for (let i = 0; i < 20; i++) {
+    const emailDomains = ['gmail', 'yahoo', 'outlook', 'hotmail']
+    const emailNames = ['mike6', 'jon233', 'noga1', 'refael155']
+
+    const randomIdx = utilService.getRandomIntInclusive(0, emailDomains.length -1)
+    const mailFrom = `${emailNames[randomIdx]}@${emailDomains[randomIdx]}.com`
+
     const mail = {
       id: utilService.makeId(),
       createdAt: 1551133930500,
@@ -172,7 +178,7 @@ function _createMails() {
       isDraft: false,
       sentAt: 1551133930594,
       removedAt: null,
-      from: 'momo@momo.com',
+      from: mailFrom,
       to: 'user@appsus.com'
     }
     mails.push(mail)
